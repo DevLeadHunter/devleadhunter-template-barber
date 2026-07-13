@@ -1,28 +1,24 @@
 import type { SiteContent } from './app/types/SiteContent'
 
 /**
- * Mock SiteContent used by the `.playground` to preview the template in isolation.
- * Not shipped to production — edit it freely while designing your template.
+ * Mock SiteContent for later CMS wiring.
+ * Current playground renders hardcoded Pencil content in BarberRoot.
  */
 export const mockSiteContent: SiteContent = {
-  businessName: 'Plomberie Martin',
-  subtitle: 'Dépannage, installation et rénovation à Rennes et alentours',
-  phone: '02 99 00 12 34',
-  email: 'contact@plomberie-martin.fr',
-  city: 'Rennes',
-  area: 'Ille-et-Vilaine',
+  businessName: 'Barbershop',
+  subtitle: 'Experience the Convenience of In-Home Barber Services',
+  phone: '(475) 453 - 3465',
+  email: 'hello@example.com',
+  city: 'Lefroy',
+  area: 'Ontario',
+  about:
+    'Your personal barber service at your home. Nulla egestas sapien integer mi fermentum tellus tristique consequat.',
   services: [
-    {
-      title: 'Dépannage urgence',
-      description: 'Fuite, engorgement, panne de chauffe-eau — intervention rapide 7j/7.',
-    },
-    {
-      title: 'Installation sanitaire',
-      description: 'Salle de bain, cuisine, WC : pose complète et soignée.',
-    },
-    {
-      title: 'Rénovation',
-      description: 'Modernisation de vos installations et mise aux normes.',
-    },
+    { title: 'Adult haircut', description: '$39 USD' },
+    { title: 'Kids Haircut', description: '$19 USD' },
+    { title: 'Beard Trim', description: '$29 USD' },
+    { title: 'Neck Shave', description: '$39 USD' },
+    { title: 'Scalp Moisturizing', description: '$10 USD' },
+    { title: 'Beard Grooming', description: '$49 USD' },
   ],
 }

@@ -1,22 +1,127 @@
 @import 'tailwindcss';
 
-/*
- * Scan the layer's components/composables so Tailwind v4 generates their utility classes
- * when this template is consumed by demo-host via `extends` (from the giget/npm cache).
- * Path: app/assets/css/ → app/
- */
 @source '../../**/*.{vue,ts}';
+@source '../../../.playground/app/**/*.{vue,ts}';
 
 /*
- * Neutral placeholder design tokens. This is what makes each template look different —
- * replace the font and colors with your template's own art direction (DA).
+ * Tokens from Pencil maquette.pen (Barbershop Landingpage 1440).
+ * Colors / fonts / radii extracted from nodes — do not invent.
  */
 @theme {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Barlow', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Work Sans', ui-sans-serif, system-ui, sans-serif;
 
-  --color-brand: #2f6df0;
-  --color-brand-soft: #5b8ef5;
-  --color-surface: #ffffff;
-  --color-ink: #0f172a;
-  --color-muted: #64748b;
+  --color-surface: #f8f5ef;
+  --color-surface-card: #ffffff;
+  --color-ink: #121212;
+  --color-accent: #dec7a6;
+  --color-star: #f2c94c;
+  --color-google: #eb4335;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  overflow-y: visible;
+  height: auto;
+}
+
+body {
+  margin: 0;
+  background: #f8f5ef;
+  color: #121212;
+  font-family: 'Work Sans', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  overflow-y: visible;
+  min-height: 100%;
+}
+
+.barber-page {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  background: #f8f5ef;
+  overflow-x: clip;
+}
+
+.barber-container {
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding-inline: 20px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1440px) {
+  .barber-container {
+    padding-inline: 0;
+  }
+}
+
+.font-display {
+  font-family: 'Barlow', ui-sans-serif, system-ui, sans-serif;
+}
+
+.btn-barber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 30px;
+  border: none;
+  border-radius: 0;
+  background: #dec7a6;
+  color: #121212;
+  font-family: 'Barlow', ui-sans-serif, system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.9px;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: none;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.btn-barber:hover {
+  filter: brightness(0.97);
+}
+
+.btn-barber--outline {
+  background: transparent;
+  color: #ffffff;
+  box-shadow: inset 0 0 0 2px #ffffff;
+}
+
+.btn-barber--outline:hover {
+  filter: none;
+  background: rgb(255 255 255 / 8%);
+}
+
+.barber-card-shadow {
+  box-shadow: 0 4px 26.25px #0000001a;
+}
+
+.barber-info-shadow {
+  box-shadow: 0 4px 26.25px #0000000d;
+}
+
+.barber-accent-line {
+  display: block;
+  width: 80px;
+  height: 5px;
+  background: #dec7a6;
+  border: none;
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .btn-barber {
+    transition: none;
+  }
 }

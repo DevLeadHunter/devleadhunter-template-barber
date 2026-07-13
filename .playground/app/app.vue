@@ -1,7 +1,7 @@
 <template>
-  <DevLeadHunterStarterRoot :content="mockSiteContent" />
+  <BarberRoot />
 </template>
 
 <script lang="ts" setup>
-import { mockSiteContent } from '../../content'
+import BarberRoot from '../../app/components/BarberRoot.vue'
 </script>
