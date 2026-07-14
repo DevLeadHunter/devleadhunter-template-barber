@@ -4,17 +4,13 @@
     class="barber-services">
     <div class="barber-container barber-services__inner">
       <header class="barber-services__header">
-        <h2 class="barber-services__title font-display">Browse our services</h2>
-        <p class="barber-services__text">
-          Nulla egestas sapien integer mi fermentum tellus tristique consequat pulvinar sagittis
-          adipiscing egestas purus et mi tempus semper id vel prci eu magna in senectus sit eget
-          justo eget.
-        </p>
+        <h2 class="barber-services__title font-display">{{ page.servicesHeading }}</h2>
+        <p class="barber-services__text">{{ page.servicesIntro }}</p>
       </header>
 
       <div class="barber-services__card barber-card-shadow">
         <article
-          v-for="service in services"
+          v-for="service in page.services"
           :key="service.title"
           class="barber-services__item">
           <img
@@ -28,7 +24,9 @@
               {{ service.title }}
             </h3>
             <p class="barber-services__item-desc">{{ service.description }}</p>
-            <p class="barber-services__item-price font-display">
+            <p
+              v-if="service.price"
+              class="barber-services__item-price font-display">
               {{ service.price }}
             </p>
           </div>
@@ -39,7 +37,7 @@
         <a
           class="btn-barber"
           href="#contact">
-          Book an Appointment
+          {{ page.servicesCta }}
         </a>
       </div>
     </div>
@@ -47,47 +45,15 @@
 </template>
 
 <script lang="ts" setup>
-const serviceDesc =
-  'Nulla egestas sapien integer mi fermentum tellus tristique consequatolm pulvinar sagittis'
+import type { PropType } from 'vue'
+import type { BarberPageContent } from '~/types/barber'
 
-const services = [
-  {
-    title: 'Adult haircut',
-    price: '$39 USD',
-    description: serviceDesc,
-    icon: '/images/image-import-8.png',
+defineProps({
+  page: {
+    type: Object as PropType<BarberPageContent>,
+    required: true,
   },
-  {
-    title: 'Kids Haircut',
-    price: '$19 USD',
-    description: serviceDesc,
-    icon: '/images/image-import-9.png',
-  },
-  {
-    title: 'Beard Trim',
-    price: '$29 USD',
-    description: serviceDesc,
-    icon: '/images/image-import-4.png',
-  },
-  {
-    title: 'Neck Shave',
-    price: '$39 USD',
-    description: serviceDesc,
-    icon: '/images/image-import-3.png',
-  },
-  {
-    title: 'Scalp Moisturizing',
-    price: '$10 USD',
-    description: serviceDesc,
-    icon: '/images/image-import-6.png',
-  },
-  {
-    title: 'Beard Grooming',
-    price: '$49 USD',
-    description: serviceDesc,
-    icon: '/images/image-import-5.png',
-  },
-] as const
+})
 </script>
 
 <style scoped>

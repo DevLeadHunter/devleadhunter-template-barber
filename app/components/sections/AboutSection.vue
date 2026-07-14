@@ -2,33 +2,29 @@
   <section class="barber-about">
     <div class="barber-container barber-about__grid">
       <div class="barber-about__copy">
-        <h2 class="barber-about__title font-display">Your personal barber service at your home</h2>
-        <p class="barber-about__text">
-          Nulla egestas sapien integer mi fermentum tellus tristique consequat pulvinar sagittis
-          adipiscing egestas purus et mi tempus semper id vel prci eu magna in senectus sit eget
-          justo
-        </p>
+        <h2 class="barber-about__title font-display">{{ page.aboutHeading }}</h2>
+        <p class="barber-about__text">{{ page.about }}</p>
         <div class="barber-about__stats">
-          <div class="barber-about__stat">
+          <div
+            v-for="stat in page.stats"
+            :key="stat.label"
+            class="barber-about__stat">
             <p class="barber-about__stat-value font-display">
-              <span class="barber-about__stat-num">99</span
-              ><span class="barber-about__stat-sym">%</span>
+              <span class="barber-about__stat-num">{{ stat.num }}</span
+              ><span
+                v-if="stat.sym"
+                class="barber-about__stat-sym"
+                >{{ stat.sym }}</span
+              >
             </p>
-            <p class="barber-about__stat-label font-display">Customer Satisfaction</p>
-          </div>
-          <div class="barber-about__stat">
-            <p class="barber-about__stat-value font-display">
-              <span class="barber-about__stat-num">10</span
-              ><span class="barber-about__stat-sym">+</span>
-            </p>
-            <p class="barber-about__stat-label font-display">Years of experience</p>
+            <p class="barber-about__stat-label font-display">{{ stat.label }}</p>
           </div>
         </div>
       </div>
       <div class="barber-about__media">
         <img
-          src="/images/image-import-1.jpg"
-          alt="Barber grooming a client's beard"
+          :src="page.aboutImage"
+          :alt="page.aboutHeading"
           width="603"
           height="600" />
       </div>
@@ -36,7 +32,17 @@
   </section>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import type { PropType } from 'vue'
+import type { BarberPageContent } from '~/types/barber'
+
+defineProps({
+  page: {
+    type: Object as PropType<BarberPageContent>,
+    required: true,
+  },
+})
+</script>
 
 <style scoped>
 .barber-about {

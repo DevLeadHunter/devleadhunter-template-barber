@@ -1,19 +1,24 @@
 <template>
-  <div class="barber-page">
-    <HeroSection />
-    <AboutSection />
-    <ServicesSection />
-    <CtaSection />
-    <WhySection />
-    <FooterSection />
+  <div
+    class="barber-page"
+    :style="themeStyle">
+    <HeroSection :page="page" />
+    <AboutSection :page="page" />
+    <ServicesSection :page="page" />
+    <CtaSection :page="page" />
+    <WhySection :page="page" />
+    <FooterSection :page="page" />
   </div>
 </template>
 
 <script lang="ts" setup>
 /**
  * Root component of the barber template — single public entry point for demo-host.
- * Pixel-perfect Pencil integration (hardcoded content). SiteContent wiring comes later.
+ * Receives flat `SiteContent` and builds the page model consumed by sections.
  */
+import type { ComputedRef, PropType, StyleValue } from 'vue'
+import type { SiteContent } from '~/types/SiteContent'
+import { buildBarberContent, type BarberPageContent } from '~/types/barber'
 import HeroSection from './sections/HeroSection.vue'
 import AboutSection from './sections/AboutSection.vue'
 import ServicesSection from './sections/ServicesSection.vue'
@@ -21,8 +26,25 @@ import CtaSection from './sections/CtaSection.vue'
 import WhySection from './sections/WhySection.vue'
 import FooterSection from './sections/FooterSection.vue'
 
+const props = defineProps({
+  content: {
+    type: Object as PropType<SiteContent>,
+    required: true,
+  },
+})
+
+const page: ComputedRef<BarberPageContent> = computed((): BarberPageContent =>
+  buildBarberContent(props.content),
+)
+
+const themeStyle: ComputedRef<StyleValue> = computed((): StyleValue => ({
+  '--barber-primary': page.value.theme.primary,
+  '--barber-secondary': page.value.theme.secondary,
+  '--barber-accent': page.value.theme.accent,
+}))
+
 useHead({
-  title: 'Barbershop',
+  title: () => page.value.businessName,
   link: [
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
     { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },

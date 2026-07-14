@@ -2,17 +2,13 @@
   <section class="barber-why">
     <div class="barber-container barber-why__inner">
       <header class="barber-why__header">
-        <h2 class="barber-why__title font-display">why choose us</h2>
-        <p class="barber-why__text">
-          Nulla egestas sapien integer mi fermentum tellus tristique consequat pulvinar sagittis
-          adipiscing egestas purus et mi tempus semper id vel prci eu magna in senectus sit eget
-          justo eget.
-        </p>
+        <h2 class="barber-why__title font-display">{{ page.whyHeading }}</h2>
+        <p class="barber-why__text">{{ page.whyIntro }}</p>
       </header>
 
       <div class="barber-why__cards">
         <article
-          v-for="card in cards"
+          v-for="card in page.whyCards"
           :key="card.title"
           class="barber-why__card">
           <img
@@ -46,8 +42,8 @@
               fill="#1976D2"
               d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" />
           </svg>
-          <p class="barber-why__rating-brand font-display">GOOGLE</p>
-          <p class="barber-why__rating-score font-display">4.9</p>
+          <p class="barber-why__rating-brand font-display">{{ page.google.brand }}</p>
+          <p class="barber-why__rating-score font-display">{{ page.google.score }}</p>
           <div
             class="barber-why__stars"
             aria-hidden="true">
@@ -58,14 +54,14 @@
               ★
             </span>
           </div>
-          <p class="barber-why__rating-count">196 reviews</p>
+          <p class="barber-why__rating-count">{{ page.google.count }}</p>
         </div>
 
         <blockquote class="barber-why__quote">
           <img
             class="barber-why__avatar"
-            src="/images/image-import-8.jpg"
-            alt="Sam Houston"
+            :src="page.testimonial.avatar"
+            :alt="page.testimonial.author"
             width="107"
             height="107" />
           <div class="barber-why__quote-body">
@@ -73,19 +69,15 @@
               class="barber-why__stars barber-why__stars--quote"
               aria-hidden="true">
               <span
-                v-for="n in 5"
+                v-for="n in Math.max(1, Math.round(page.testimonial.rating))"
                 :key="`q-${n}`"
                 class="barber-why__star">
                 ★
               </span>
             </div>
-            <p class="barber-why__quote-title font-display">THE BEST BARBER Services</p>
-            <p class="barber-why__quote-text">
-              Et proin ut in dignissim sem non a nullam magna lectus urna et dui quam tellus
-              imperdiet sit purus at fringilla scelerisque diam amet fermentum orci fringilla
-              aliquet nulla lectus erat eu auctor
-            </p>
-            <cite class="barber-why__quote-author font-display">SAM HOUSTON</cite>
+            <p class="barber-why__quote-title font-display">{{ page.testimonial.title }}</p>
+            <p class="barber-why__quote-text">{{ page.testimonial.text }}</p>
+            <cite class="barber-why__quote-author font-display">{{ page.testimonial.author }}</cite>
           </div>
         </blockquote>
 
@@ -99,8 +91,8 @@
               fill="#34E0A1"
               d="M12.006 4.295c-2.67 0-5.338.784-7.645 2.353H0l1.963 2.135a5.997 5.997 0 0 0 4.041 10.43 5.988 5.988 0 0 0 4.037-1.565L12 19.705l1.959-2.057a5.991 5.991 0 0 0 4.037 1.565 6 6 0 0 0 4.041-10.43L24 6.648h-4.361a13.57 13.57 0 0 0-7.633-2.353zM12 6.436c2.019 0 3.929.545 5.585 1.553l-1.586 1.747a8.068 8.068 0 0 0-4-1.063c-1.453 0-2.818.38-4.005 1.06L6.41 7.986A10.314 10.314 0 0 1 12 6.436zm-6.008 4.247a3.845 3.845 0 1 1 0 7.69 3.845 3.845 0 0 1 0-7.69zm12.016 0a3.845 3.845 0 1 1 0 7.69 3.845 3.845 0 0 1 0-7.69zm-12.016 1.548a2.287 2.287 0 1 0 0 4.574 2.287 2.287 0 0 0 0-4.574zm12.016 0a2.287 2.287 0 1 0 0 4.574 2.287 2.287 0 0 0 0-4.574z" />
           </svg>
-          <p class="barber-why__rating-brand font-display">tripadvisor</p>
-          <p class="barber-why__rating-score font-display">5.0</p>
+          <p class="barber-why__rating-brand font-display">{{ page.tripadvisor.brand }}</p>
+          <p class="barber-why__rating-score font-display">{{ page.tripadvisor.score }}</p>
           <div
             class="barber-why__stars"
             aria-hidden="true">
@@ -111,7 +103,7 @@
               ★
             </span>
           </div>
-          <p class="barber-why__rating-count">196 reviews</p>
+          <p class="barber-why__rating-count">{{ page.tripadvisor.count }}</p>
         </div>
       </div>
     </div>
@@ -119,23 +111,15 @@
 </template>
 
 <script lang="ts" setup>
-const cards = [
-  {
-    title: 'Licensed',
-    icon: '/images/image-import-14.png',
-    text: 'Our team of licensed and insured barbers follow strict cleanliness and sanitation guidelines for a safe and comfortable experience.',
+import type { PropType } from 'vue'
+import type { BarberPageContent } from '~/types/barber'
+
+defineProps({
+  page: {
+    type: Object as PropType<BarberPageContent>,
+    required: true,
   },
-  {
-    title: 'Masters',
-    icon: '/images/image-import.png',
-    text: 'Our barbers are passionate about their craft and aim to provide high-quality haircuts for every client.',
-  },
-  {
-    title: 'Trusted',
-    icon: '/images/image-import-2.png',
-    text: 'We have a strong online reputation with a 5-star rating from over 100 thousand satisfied clients.',
-  },
-] as const
+})
 </script>
 
 <style scoped>

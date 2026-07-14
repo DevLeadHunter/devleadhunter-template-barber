@@ -3,8 +3,8 @@
     <div class="barber-hero__media">
       <img
         class="barber-hero__img"
-        src="/images/image-import-3.jpg"
-        alt="Barber cutting client's hair in salon"
+        :src="page.heroImage"
+        :alt="page.businessName"
         width="1482"
         height="1185" />
       <div
@@ -12,20 +12,23 @@
         aria-hidden="true" />
       <div class="barber-hero__content">
         <h1 class="barber-hero__title font-display">
-          The ultimate convenience<br />
-          for busy people
+          <template
+            v-for="(line, i) in heroTitleLines"
+            :key="i">
+            {{ line }}<br v-if="i < heroTitleLines.length - 1" />
+          </template>
         </h1>
-        <p class="barber-hero__subtitle">Experience the Convenience of In-Home Barber Services</p>
+        <p class="barber-hero__subtitle">{{ page.heroSubtitle }}</p>
         <div class="barber-hero__actions">
           <a
             class="btn-barber"
             href="#contact">
-            Book an Appointment
+            {{ page.ctaPrimary }}
           </a>
           <a
             class="btn-barber btn-barber--outline"
             href="#services">
-            Browse services
+            {{ page.ctaSecondary }}
           </a>
         </div>
       </div>
@@ -34,7 +37,7 @@
     <div class="barber-hero__infobox-wrap">
       <div class="barber-hero__infobox barber-info-shadow">
         <div
-          v-for="item in infoItems"
+          v-for="item in page.infoItems"
           :key="item.label"
           class="barber-hero__info-item">
           <img
@@ -61,23 +64,30 @@
 </template>
 
 <script lang="ts" setup>
-const infoItems = [
-  {
-    label: 'Address',
-    icon: '/images/image-import-15.png',
-    lines: ['3696 Lynden Road, Lefroy Ontario canada'],
+import type { PropType } from 'vue'
+import type { BarberPageContent } from '~/types/barber'
+
+const props = defineProps({
+  page: {
+    type: Object as PropType<BarberPageContent>,
+    required: true,
   },
-  {
-    label: 'phone',
-    icon: '/images/image-import-12.png',
-    lines: ['+62(123)-456-7890'],
-  },
-  {
-    label: 'hours',
-    icon: '/images/image-import-10.png',
-    lines: ['Mon – Sat: 9AM – 8PM', 'Sun: 9AM – 6PM'],
-  },
-] as const
+})
+
+const heroTitleLines = computed((): string[] => {
+  const raw: string = props.page.heroTitle
+  if (raw.includes('\n')) {
+    return raw.split('\n').filter((line) => line.trim().length > 0)
+  }
+  // Default Pencil headline wraps after "convenience"
+  const match: RegExpMatchArray | null = raw.match(
+    /^(The ultimate convenience)\s+(for busy people)$/i,
+  )
+  if (match) {
+    return [match[1] ?? raw, match[2] ?? '']
+  }
+  return [raw]
+})
 </script>
 
 <style scoped>

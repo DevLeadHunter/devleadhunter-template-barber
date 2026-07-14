@@ -6,8 +6,8 @@
       <div class="barber-footer__contact-media">
         <img
           class="barber-footer__contact-img"
-          src="/images/image-import-5.jpg"
-          alt="Barbershop interior"
+          :src="page.contactImage"
+          :alt="page.businessName"
           width="1464"
           height="898" />
         <div
@@ -17,17 +17,14 @@
 
       <div class="barber-container barber-footer__contact-grid">
         <div class="barber-footer__intro">
-          <h2 class="barber-footer__title font-display">make an appointment</h2>
-          <p class="barber-footer__text">
-            Nulla egestas sapien integer mi fermentum tellus tristique consequat pulvinar sagittis
-            adipiscing egestas purus et mi tempus semper id vel prci eu magna in senectus sit eget
-            justo
-          </p>
+          <h2 class="barber-footer__title font-display">{{ page.contactHeading }}</h2>
+          <p class="barber-footer__text">{{ page.contactIntro }}</p>
 
           <div class="barber-footer__channels">
             <a
+              v-if="page.phone"
               class="barber-footer__channel"
-              href="tel:4754533465">
+              :href="`tel:${phoneHref}`">
               <span class="barber-footer__channel-icon">
                 <img
                   src="/images/image-import-12.png"
@@ -36,13 +33,18 @@
                   height="36" />
               </span>
               <span>
-                <span class="barber-footer__channel-label font-display"> Give us a Call </span>
-                <span class="barber-footer__channel-value font-display"> (475) 453 - 3465 </span>
+                <span class="barber-footer__channel-label font-display">
+                  {{ page.contactCallLabel }}
+                </span>
+                <span class="barber-footer__channel-value font-display">
+                  {{ page.phoneDisplay || page.phone }}
+                </span>
               </span>
             </a>
             <a
+              v-if="page.email"
               class="barber-footer__channel"
-              href="mailto:hello@example.com">
+              :href="`mailto:${page.email}`">
               <span class="barber-footer__channel-icon">
                 <img
                   src="/images/image-import-7.png"
@@ -51,8 +53,10 @@
                   height="36" />
               </span>
               <span>
-                <span class="barber-footer__channel-label font-display"> Send us an email </span>
-                <span class="barber-footer__channel-value font-display"> hello@example.com </span>
+                <span class="barber-footer__channel-label font-display">
+                  {{ page.contactEmailLabel }}
+                </span>
+                <span class="barber-footer__channel-value font-display">{{ page.email }}</span>
               </span>
             </a>
           </div>
@@ -62,7 +66,7 @@
           class="barber-footer__form barber-card-shadow"
           @submit.prevent="onSubmit">
           <label class="barber-footer__field barber-footer__field--name">
-            <span class="barber-footer__field-label font-display">Full name</span>
+            <span class="barber-footer__field-label font-display">{{ page.formNameLabel }}</span>
             <input
               v-model="form.fullName"
               class="barber-footer__input"
@@ -71,7 +75,7 @@
               autocomplete="name" />
           </label>
           <label class="barber-footer__field barber-footer__field--subject">
-            <span class="barber-footer__field-label font-display">subject</span>
+            <span class="barber-footer__field-label font-display">{{ page.formSubjectLabel }}</span>
             <input
               v-model="form.subject"
               class="barber-footer__input"
@@ -79,7 +83,7 @@
               name="subject" />
           </label>
           <label class="barber-footer__field barber-footer__field--phone">
-            <span class="barber-footer__field-label font-display">phone number</span>
+            <span class="barber-footer__field-label font-display">{{ page.formPhoneLabel }}</span>
             <input
               v-model="form.phone"
               class="barber-footer__input"
@@ -88,7 +92,7 @@
               autocomplete="tel" />
           </label>
           <label class="barber-footer__field barber-footer__field--email">
-            <span class="barber-footer__field-label font-display">email address</span>
+            <span class="barber-footer__field-label font-display">{{ page.formEmailLabel }}</span>
             <input
               v-model="form.email"
               class="barber-footer__input"
@@ -98,7 +102,7 @@
           </label>
           <label class="barber-footer__field barber-footer__field--message">
             <span class="barber-footer__field-label font-display">
-              Please type your message here...
+              {{ page.formMessageLabel }}
             </span>
             <textarea
               v-model="form.message"
@@ -108,7 +112,7 @@
           <button
             class="btn-barber barber-footer__submit"
             type="submit">
-            Book an Appointment
+            {{ page.formSubmitLabel }}
           </button>
         </form>
       </div>
@@ -116,7 +120,7 @@
 
     <div class="barber-footer__map">
       <img
-        src="/images/image-import-1.png"
+        :src="page.mapImage"
         alt="Map location"
         width="1472"
         height="499" />
@@ -124,74 +128,18 @@
 
     <div class="barber-footer__copyright">
       <div class="barber-container barber-footer__copyright-inner">
-        <p class="barber-footer__copy-text">© Copyright 2022 barbershop - All right reserved</p>
+        <p class="barber-footer__copy-text">{{ page.copyright }}</p>
         <div
           class="barber-footer__socials"
           aria-label="Social links">
           <a
-            href="#"
-            aria-label="Facebook">
-            <svg
-              viewBox="0 0 13 24"
-              width="13"
-              height="24"
-              aria-hidden="true">
-              <path
-                fill="#ffffff"
-                d="M8.51 3.32003l1.88 0 0-3.18c-0.91025-0.09465-1.82484-0.14138-2.74-0.14-2.72 0-4.58 1.66-4.58 4.7l0 2.62-3.07 0 0 3.56 3.07 0 0 9.12 3.68 0 0-9.12 3.06 0 0.46-3.56-3.52 0 0-2.27c0-1.05 0.28-1.73 1.76-1.73z" />
-            </svg>
-          </a>
-          <a
-            href="#"
-            aria-label="Twitter">
-            <svg
-              viewBox="0 0 24 20"
-              width="24"
-              height="20"
-              aria-hidden="true">
-              <path
-                fill="#ffffff"
-                d="M20.383 1.96745c-0.76344 0.33769-1.57304 0.55947-2.402 0.658 0.87375-0.52257 1.52771-1.34499 1.84-2.314-0.82 0.488-1.719 0.83-2.656 1.015-0.62939-0.67342-1.46364-1.12004-2.37304-1.27042-0.9094-0.15038-1.84301 0.00391-2.65569 0.43887-0.81268 0.43496-1.45888 1.12623-1.83815 1.96634-0.37927 0.84011-0.47037 1.78199-0.25912 2.67921-1.66289-0.08335-3.28967-0.51548-4.77471-1.26834-1.48505-0.75286-2.79516-1.80962-3.84529-3.10166-0.37171 0.63845-0.56704 1.36423-0.566 2.103 0 1.45 0.738 2.731 1.86 3.481-0.66399-0.0209-1.31337-0.20022-1.894-0.523l0 0.052c0.0002 0.9657 0.33437 1.90162 0.94585 2.64906 0.61148 0.74744 1.46263 1.26042 2.40915 1.45194-0.61638 0.16704-1.26269 0.19166-1.89 0.072 0.26687 0.83123 0.78701 1.5582 1.48759 2.07911 0.70059 0.52091 1.54654 0.80968 2.41941 0.82589-0.86752 0.68133-1.86082 1.18498-2.92312 1.48217-1.0623 0.29719-2.17275 0.38208-3.26788 0.24983 1.9117 1.22943 4.1371 1.88212 6.41 1.88 7.693 0 11.9-6.373 11.9-11.9 0-0.18-0.005-0.362-0.013-0.54 0.81886-0.59183 1.5256-1.32498 2.087-2.165l-0.001-0.001z" />
-            </svg>
-          </a>
-          <a
-            href="#"
-            aria-label="Instagram">
-            <svg
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-              aria-hidden="true">
-              <path
-                fill="#ffffff"
-                d="M10 7c-0.79565 0-1.55871 0.31607-2.12132 0.87868-0.56261 0.56261-0.87868 1.32567-0.87868 2.12132 0 0.79565 0.31607 1.55871 0.87868 2.12132 0.56261 0.56261 1.32567 0.87868 2.12132 0.87868 0.79565 0 1.55871-0.31607 2.12132-0.87868 0.56261-0.56261 0.87868-1.32567 0.87868-2.12132 0-0.79565-0.31607-1.55871-0.87868-2.12132-0.56261-0.56261-1.32567-0.87868-2.12132-0.87868z m0-2c1.32608 0 2.59785 0.52678 3.53553 1.46447 0.93768 0.93768 1.46447 2.20945 1.46447 3.53553 0 1.32608-0.52678 2.59785-1.46447 3.53553-0.93768 0.93768-2.20945 1.46447-3.53553 1.46447-1.32608 0-2.59785-0.52678-3.53553-1.46447-0.93768-0.93768-1.46447-2.20945-1.46447-3.53553 0-1.32608 0.52678-2.59785 1.46447-3.53553 0.93768-0.93768 2.20945-1.46447 3.53553-1.46447z m6.5-0.25c0 0.33152-0.1317 0.64946-0.36612 0.88388-0.23442 0.23442-0.55236 0.36612-0.88388 0.36612-0.33152 0-0.64946-0.1317-0.88388-0.36612-0.23442-0.23442-0.36612-0.55236-0.36612-0.88388 0-0.33152 0.1317-0.64946 0.36612-0.88388 0.23442-0.23442 0.55236-0.36612 0.88388-0.36612 0.33152 0 0.64946 0.1317 0.88388 0.36612 0.23442 0.23442 0.36612 0.55236 0.36612 0.88388z m-6.5-2.75c-2.474 0-2.878 0.007-4.029 0.058-0.784 0.037-1.31 0.142-1.798 0.332-0.40838 0.14994-0.77759 0.39026-1.08 0.703-0.31299 0.3024-0.55365 0.67158-0.704 1.08-0.19 0.49-0.295 1.015-0.331 1.798-0.052 1.104-0.058 1.49-0.058 4.029 0 2.474 0.007 2.878 0.058 4.029 0.037 0.783 0.142 1.31 0.331 1.797 0.17 0.435 0.37 0.748 0.702 1.08 0.337 0.336 0.65 0.537 1.08 0.703 0.494 0.191 1.02 0.297 1.8 0.333 1.104 0.052 1.49 0.058 4.029 0.058 2.474 0 2.878-0.007 4.029-0.058 0.782-0.037 1.309-0.142 1.797-0.331 0.40777-0.15069 0.77674-0.39052 1.08-0.702 0.337-0.337 0.538-0.65 0.704-1.08 0.19-0.493 0.296-1.02 0.332-1.8 0.052-1.104 0.058-1.49 0.058-4.029 0-2.474-0.007-2.878-0.058-4.029-0.037-0.782-0.142-1.31-0.332-1.798-0.15071-0.408-0.39093-0.77704-0.703-1.08-0.30227-0.31315-0.67149-0.55383-1.08-0.704-0.49-0.19-1.016-0.295-1.798-0.331-1.104-0.052-1.49-0.058-4.029-0.058z m0-2c2.717 0 3.056 0.01 4.122 0.06 1.065 0.05 1.79 0.217 2.428 0.465 0.66 0.254 1.216 0.598 1.772 1.153 0.50849 0.4999 0.90195 1.10459 1.153 1.772 0.247 0.637 0.415 1.363 0.465 2.428 0.047 1.066 0.06 1.405 0.06 4.122 0 2.717-0.01 3.056-0.06 4.122-0.05 1.065-0.218 1.79-0.465 2.428-0.25032 0.66778-0.64388 1.27262-1.153 1.772-0.50004 0.50832-1.10469 0.90175-1.772 1.153-0.637 0.247-1.363 0.415-2.428 0.465-1.066 0.047-1.405 0.06-4.122 0.06-2.717 0-3.056-0.01-4.122-0.06-1.065-0.05-1.79-0.218-2.428-0.465-0.66767-0.25053-1.27247-0.64406-1.772-1.153-0.50859-0.49982-0.90207-1.10453-1.153-1.772-0.248-0.637-0.415-1.363-0.465-2.428-0.047-1.066-0.06-1.405-0.06-4.122 0-2.717 0.01-3.056 0.06-4.122 0.05-1.066 0.217-1.79 0.465-2.428 0.25024-0.66782 0.6438-1.27268 1.153-1.772 0.49967-0.50877 1.10443-0.90227 1.772-1.153 0.638-0.248 1.362-0.415 2.428-0.465 1.066-0.047 1.405-0.06 4.122-0.06z" />
-            </svg>
-          </a>
-          <a
-            href="#"
-            aria-label="Pinterest">
-            <svg
-              viewBox="0 0 19 24"
-              width="19"
-              height="24"
-              aria-hidden="true">
-              <path
-                fill="#ffffff"
-                d="M6.39623 13.22743c-0.526 2.754-1.167 5.394-3.068 6.773-0.586-4.162 0.861-7.287 1.534-10.605-1.147-1.93 0.138-5.812 2.555-4.855 2.975 1.176-2.576 7.172 1.15 7.922 3.891 0.781 5.479-6.75 3.066-9.199-3.485-3.538-10.146-0.083-9.326 4.982 0.199 1.238 1.478 1.613 0.511 3.322-2.231-0.494-2.897-2.254-2.811-4.6 0.138-3.84 3.449-6.527 6.771-6.9 4.201-0.471 8.144 1.543 8.689 5.494 0.613 4.461-1.896 9.293-6.389 8.945-1.218-0.095-1.728-0.699-2.682-1.279z" />
-            </svg>
-          </a>
-          <a
-            href="#"
-            aria-label="LinkedIn">
-            <svg
-              viewBox="0 0 26 24"
-              width="26"
-              height="24"
-              aria-hidden="true">
-              <path
-                fill="#ffffff"
-                d="M4 2.001c-0.00027 0.53043-0.21123 1.03904-0.58649 1.41392-0.37526 0.37489-0.88407 0.58534-1.41451 0.58508-0.53043-0.00027-1.03904-0.21123-1.41392-0.58649-0.37489-0.37526-0.58534-0.88407-0.58508-1.41451 0.00027-0.53043 0.21123-1.03904 0.58649-1.41392 0.37526-0.37489 0.88407-0.58534 1.41451-0.58508 0.53043 0.00027 1.03904 0.21123 1.41392 0.58649 0.37489 0.37526 0.58534 0.88407 0.58508 1.41451z m0.06 3.48l-4 0 0 12.52 4 0 0-12.52z m6.32 0l-3.98 0 0 12.52 3.94 0 0-6.57c0-3.66 4.77-4 4.77 0l0 6.57 3.95 0 0-7.93c0-6.17-7.06-5.94-8.72-2.91l0.04-1.68z" />
-            </svg>
+            v-for="social in page.socials"
+            :key="social.name"
+            :href="social.href"
+            :aria-label="social.label"
+            target="_blank"
+            rel="noopener noreferrer">
+            <span class="barber-footer__social-fallback">{{ social.label.charAt(0) }}</span>
           </a>
         </div>
       </div>
@@ -200,7 +148,18 @@
 </template>
 
 <script lang="ts" setup>
+import type { ComputedRef, PropType } from 'vue'
 import { reactive } from 'vue'
+import type { BarberPageContent } from '~/types/barber'
+
+const props = defineProps({
+  page: {
+    type: Object as PropType<BarberPageContent>,
+    required: true,
+  },
+})
+
+const phoneHref: ComputedRef<string> = computed((): string => props.page.phone.replace(/\D/g, ''))
 
 const form = reactive({
   fullName: '',
@@ -211,17 +170,18 @@ const form = reactive({
 })
 
 function onSubmit(): void {
-  const subject = encodeURIComponent(form.subject || 'Appointment request')
+  const to: string = props.page.email || 'contact@example.com'
+  const subject = encodeURIComponent(form.subject || 'Demande de rendez-vous')
   const body = encodeURIComponent(
     [
-      `Full name: ${form.fullName}`,
-      `Phone: ${form.phone}`,
-      `Email: ${form.email}`,
+      `Nom : ${form.fullName}`,
+      `Téléphone : ${form.phone}`,
+      `Email : ${form.email}`,
       '',
       form.message,
     ].join('\n'),
   )
-  window.location.href = `mailto:hello@example.com?subject=${subject}&body=${body}`
+  window.location.href = `mailto:${to}?subject=${subject}&body=${body}`
 }
 </script>
 
@@ -519,6 +479,22 @@ function onSubmit(): void {
 
 .barber-footer__socials a:hover {
   opacity: 0.75;
+}
+
+.barber-footer__social-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgb(255 255 255 / 55%);
+  border-radius: 999px;
+  font-family: 'Barlow', ui-sans-serif, system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  text-transform: uppercase;
 }
 
 @media (max-width: 1100px) {

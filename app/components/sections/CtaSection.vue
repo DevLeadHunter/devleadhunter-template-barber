@@ -3,8 +3,8 @@
     <div class="barber-cta__media">
       <img
         class="barber-cta__img"
-        src="/images/image-import-2.jpg"
-        alt="Barber shaving a client's beard"
+        :src="page.midCtaImage"
+        :alt="page.midCtaTitle"
         width="1452"
         height="1126" />
       <div
@@ -12,19 +12,27 @@
         aria-hidden="true" />
     </div>
     <div class="barber-cta__content">
-      <h2 class="barber-cta__title font-display">
-        Experience the luxury of concierge barber services<br />at your home
-      </h2>
+      <h2 class="barber-cta__title font-display">{{ page.midCtaTitle }}</h2>
       <a
         class="btn-barber"
         href="#contact">
-        Book an Appointment
+        {{ page.midCtaButton }}
       </a>
     </div>
   </section>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import type { PropType } from 'vue'
+import type { BarberPageContent } from '~/types/barber'
+
+defineProps({
+  page: {
+    type: Object as PropType<BarberPageContent>,
+    required: true,
+  },
+})
+</script>
 
 <style scoped>
 .barber-cta {
