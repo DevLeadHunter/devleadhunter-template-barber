@@ -43,10 +43,14 @@ const themeStyle: ComputedRef<StyleValue> = computed((): StyleValue => ({
   '--barber-accent': page.value.theme.accent,
 }))
 
-/** Logo prospect → favicon ; sinon favicon DA de la template. */
+/** Logo prospect (URL logo uniquement) → favicon ; sinon logo DA barber. */
 const faviconHref: ComputedRef<string> = computed((): string => {
   const logo: string = typeof props.content.logo === 'string' ? props.content.logo.trim() : ''
-  return logo.length > 0 ? logo : '/images/favicon.svg'
+  // Refuse les photos « hero » passées par erreur : un logo est en général SVG/PNG petit.
+  if (logo.length === 0) {
+    return '/images/favicon.svg'
+  }
+  return logo
 })
 
 useHead((): { title: string; link: Array<Record<string, string>> } => ({

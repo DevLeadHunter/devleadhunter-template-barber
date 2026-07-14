@@ -61,6 +61,7 @@ export interface BarberSocialItem {
   name: string
   href: string
   label: string
+  icon: string
 }
 
 export interface BarberPageContent {
@@ -93,9 +94,12 @@ export interface BarberPageContent {
   whyIntro: string
   whyCards: BarberWhyCard[]
   reviewsHeading: string
-  google: BarberReviewBlock
-  tripadvisor: BarberReviewBlock
-  testimonial: BarberTestimonial
+  /** Note Google dérivée des avis enrichis — `null` si aucune donnée réelle. */
+  google: BarberReviewBlock | null
+  /** TripAdvisor — masqué tant que SiteContent n’expose pas de source dédiée. */
+  tripadvisor: BarberReviewBlock | null
+  /** Avis mis en avant — `null` si aucun avis prospect réel. */
+  testimonial: BarberTestimonial | null
   contactHeading: string
   contactIntro: string
   contactImage: string
@@ -110,6 +114,12 @@ export interface BarberPageContent {
   mapImage: string
   socials: BarberSocialItem[]
   copyright: string
+}
+
+/** Icônes sociales (footer sombre) — uniquement les réseaux avec asset. */
+const SOCIAL_ICONS: Record<string, string> = {
+  facebook: '/images/social-facebook.svg',
+  instagram: '/images/social-instagram.svg',
 }
 
 const SERVICE_ICONS: string[] = [
@@ -296,8 +306,27 @@ function parseStatValue(raw: string): { num: string; sym: string } {
 }
 
 /**
+ * URL de profil réelle (pas un bare domain type facebook.com/).
+ * @param url Lien candidat
+ * @returns true si le chemin de profil est non vide
+ */
+function isRealSocialUrl(url: string): boolean {
+  if (!/^https?:\/\//i.test(url)) {
+    return false
+  }
+  try {
+    const parsed = new URL(url)
+    const path: string = parsed.pathname.replace(/\/+$/, '')
+    return path.length > 1
+  } catch {
+    return false
+  }
+}
+
+/**
  * Construit le contenu de page prêt pour le rendu.
  * @param content Données variables du prospect (`SiteContent`)
+ * @returns Contenu typé Barber
  */
 export function buildBarberContent(content: SiteContent): BarberPageContent {
   const palette = content.palette ?? {}
@@ -357,13 +386,38 @@ export function buildBarberContent(content: SiteContent): BarberPageContent {
     : []
 
   const reviews = Array.isArray(content.reviews) ? content.reviews : []
-  const featured = reviews[0]
-  const reviewCount: number = reviews.length > 0 ? reviews.length : 196
-  const avgRating: number =
+  const featured = reviews.find((item) => {
+    const text: string = typeof item?.text === 'string' ? item.text.trim() : ''
+    const author: string = typeof item?.author === 'string' ? item.author.trim() : ''
+    return text.length > 0 && author.length > 0
+  })
+
+  const googleBlock: BarberReviewBlock | null =
     reviews.length > 0
-      ? reviews.reduce((sum, r) => sum + (typeof r.rating === 'number' ? r.rating : 5), 0) /
-        reviews.length
-      : 4.9
+      ? {
+          brand: 'GOOGLE',
+          score: (
+            reviews.reduce((sum, r) => sum + (typeof r.rating === 'number' ? r.rating : 5), 0) /
+            reviews.length
+          ).toFixed(1),
+          count: `${reviews.length} avis`,
+          kind: 'google',
+        }
+      : null
+
+  // Pas de compteur / note TripAdvisor dans SiteContent → ne jamais inventer.
+  const tripadvisorBlock: BarberReviewBlock | null = null
+
+  const testimonialBlock: BarberTestimonial | null = featured
+    ? {
+        title: defaults.testimonial.title,
+        text: (featured.text ?? '').trim(),
+        author: (featured.author ?? '').trim().toUpperCase(),
+        // Pas de photo d’auteur dans SiteContent : avatar décoratif Unsplash (éditable CMS via galerie).
+        avatar: gallery[4]?.url || defaults.testimonial.avatar,
+        rating: typeof featured.rating === 'number' ? featured.rating : 5,
+      }
+    : null
 
   const socialFromContent: BarberSocialItem[] = Array.isArray(content.social)
     ? content.social
@@ -371,13 +425,15 @@ export function buildBarberContent(content: SiteContent): BarberPageContent {
           const network: string =
             typeof item?.network === 'string' ? item.network.trim().toLowerCase() : ''
           const url: string = typeof item?.url === 'string' ? item.url.trim() : ''
-          if (!network || !url) {
+          const icon: string = SOCIAL_ICONS[network] ?? ''
+          if (!network || !icon || !isRealSocialUrl(url)) {
             return null
           }
           return {
             name: network,
             href: url,
             label: network.charAt(0).toUpperCase() + network.slice(1),
+            icon,
           }
         })
         .filter((item): item is BarberSocialItem => item !== null)
@@ -391,6 +447,26 @@ export function buildBarberContent(content: SiteContent): BarberPageContent {
   const midCtaImage: string = gallery[2]?.url || defaults.midCtaImage
   const mapImage: string = gallery[3]?.url || defaults.mapImage
   const contactImage: string = gallery[5]?.url || gallery[0]?.url || defaults.contactImage
+
+  const infoItems: BarberInfoItem[] = [
+    {
+      label: 'Adresse',
+      icon: '/images/image-import-15.png',
+      lines: [address],
+    },
+  ]
+  if (phoneDisplay || phone) {
+    infoItems.push({
+      label: 'Téléphone',
+      icon: '/images/image-import-12.png',
+      lines: [phoneDisplay || phone],
+    })
+  }
+  infoItems.push({
+    label: 'Horaires',
+    icon: '/images/image-import-10.png',
+    lines: hoursLines,
+  })
 
   return {
     theme: {
@@ -419,23 +495,7 @@ export function buildBarberContent(content: SiteContent): BarberPageContent {
     heroImage,
     ctaPrimary: resolveText(content.ctaCallLabel, defaults.ctaPrimary),
     ctaSecondary: resolveText(content.ctaQuoteLabel, defaults.ctaSecondary),
-    infoItems: [
-      {
-        label: 'Adresse',
-        icon: '/images/image-import-15.png',
-        lines: [address],
-      },
-      {
-        label: 'Téléphone',
-        icon: '/images/image-import-12.png',
-        lines: [phoneDisplay || phone || '01 23 45 67 89'],
-      },
-      {
-        label: 'Horaires',
-        icon: '/images/image-import-10.png',
-        lines: hoursLines,
-      },
-    ],
+    infoItems,
     aboutHeading: resolveText(content.aboutHeading, defaults.aboutHeading),
     about: resolveText(content.about, defaults.about),
     aboutImage,
@@ -451,29 +511,9 @@ export function buildBarberContent(content: SiteContent): BarberPageContent {
     whyIntro: defaults.whyIntro,
     whyCards: [...defaults.whyCards],
     reviewsHeading: resolveText(content.reviewsHeading, defaults.reviewsHeading),
-    google: {
-      ...defaults.google,
-      score: avgRating.toFixed(1),
-      count: `${reviewCount} avis`,
-    },
-    tripadvisor: {
-      ...defaults.tripadvisor,
-      score: Math.min(5, avgRating + 0.1).toFixed(1),
-      count: `${Math.max(reviewCount - 20, 1)} avis`,
-    },
-    testimonial: {
-      title: defaults.testimonial.title,
-      text:
-        typeof featured?.text === 'string' && featured.text.trim().length > 0
-          ? featured.text
-          : defaults.testimonial.text,
-      author:
-        typeof featured?.author === 'string' && featured.author.trim().length > 0
-          ? featured.author.toUpperCase()
-          : defaults.testimonial.author,
-      avatar: gallery[4]?.url || defaults.testimonial.avatar,
-      rating: typeof featured?.rating === 'number' ? featured.rating : 5,
-    },
+    google: googleBlock,
+    tripadvisor: tripadvisorBlock,
+    testimonial: testimonialBlock,
     contactHeading: resolveText(content.contactHeading, defaults.contactHeading),
     contactIntro: defaults.contactIntro,
     contactImage,
@@ -486,15 +526,7 @@ export function buildBarberContent(content: SiteContent): BarberPageContent {
     formMessageLabel: defaults.formMessageLabel,
     formSubmitLabel: resolveText(content.ctaCallLabel, defaults.formSubmitLabel),
     mapImage,
-    socials: socialFromContent.length
-      ? socialFromContent
-      : [
-          { name: 'facebook', href: '#', label: 'Facebook' },
-          { name: 'twitter', href: '#', label: 'Twitter' },
-          { name: 'instagram', href: '#', label: 'Instagram' },
-          { name: 'pinterest', href: '#', label: 'Pinterest' },
-          { name: 'linkedin', href: '#', label: 'LinkedIn' },
-        ],
+    socials: socialFromContent,
     copyright: `© ${new Date().getFullYear()} ${businessName} — Tous droits réservés`,
   }
 }

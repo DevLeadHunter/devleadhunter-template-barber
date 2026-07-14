@@ -23,8 +23,12 @@
         </article>
       </div>
 
-      <div class="barber-why__testimonials">
-        <div class="barber-why__rating">
+      <div
+        v-if="page.google || page.testimonial || page.tripadvisor"
+        class="barber-why__testimonials">
+        <div
+          v-if="page.google"
+          class="barber-why__rating">
           <svg
             class="barber-why__google-icon"
             viewBox="0 0 48 48"
@@ -57,8 +61,11 @@
           <p class="barber-why__rating-count">{{ page.google.count }}</p>
         </div>
 
-        <blockquote class="barber-why__quote">
+        <blockquote
+          v-if="page.testimonial"
+          class="barber-why__quote">
           <img
+            v-if="page.testimonial.avatar"
             class="barber-why__avatar"
             :src="page.testimonial.avatar"
             :alt="page.testimonial.author"
@@ -81,12 +88,13 @@
           </div>
         </blockquote>
 
-        <div class="barber-why__rating">
+        <div
+          v-if="page.tripadvisor"
+          class="barber-why__rating">
           <svg
             class="barber-why__tripadvisor-icon"
             viewBox="0 0 24 24"
             aria-hidden="true">
-            <!-- Official Tripadvisor owl glyph (brand green) -->
             <path
               fill="#34E0A1"
               d="M12.006 4.295c-2.67 0-5.338.784-7.645 2.353H0l1.963 2.135a5.997 5.997 0 0 0 4.041 10.43 5.988 5.988 0 0 0 4.037-1.565L12 19.705l1.959-2.057a5.991 5.991 0 0 0 4.037 1.565 6 6 0 0 0 4.041-10.43L24 6.648h-4.361a13.57 13.57 0 0 0-7.633-2.353zM12 6.436c2.019 0 3.929.545 5.585 1.553l-1.586 1.747a8.068 8.068 0 0 0-4-1.063c-1.453 0-2.818.38-4.005 1.06L6.41 7.986A10.314 10.314 0 0 1 12 6.436zm-6.008 4.247a3.845 3.845 0 1 1 0 7.69 3.845 3.845 0 0 1 0-7.69zm12.016 0a3.845 3.845 0 1 1 0 7.69 3.845 3.845 0 0 1 0-7.69zm-12.016 1.548a2.287 2.287 0 1 0 0 4.574 2.287 2.287 0 0 0 0-4.574zm12.016 0a2.287 2.287 0 1 0 0 4.574 2.287 2.287 0 0 0 0-4.574z" />
@@ -206,27 +214,23 @@ defineProps({
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  gap: 48px;
   width: 100%;
   /* Pencil: testimonials y=725, cards block ends ~583 → gap 142 */
   margin-top: 142px;
 }
 
-.barber-why__testimonials > .barber-why__rating:first-child {
+.barber-why__testimonials > .barber-why__rating {
   width: 152px;
   flex-shrink: 0;
+  margin-left: 0;
 }
 
 .barber-why__testimonials > .barber-why__quote {
   width: 600px;
   max-width: 600px;
   flex-shrink: 0;
-  margin-left: 104px;
-}
-
-.barber-why__testimonials > .barber-why__rating:last-child {
-  width: 280px;
-  flex-shrink: 0;
-  margin-left: 17px;
+  margin-left: 0;
 }
 
 .barber-why__rating {
@@ -370,8 +374,7 @@ defineProps({
     margin-top: 64px;
   }
 
-  .barber-why__testimonials > .barber-why__rating:first-child,
-  .barber-why__testimonials > .barber-why__rating:last-child,
+  .barber-why__testimonials > .barber-why__rating,
   .barber-why__testimonials > .barber-why__quote {
     width: 100%;
     max-width: 600px;

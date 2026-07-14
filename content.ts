@@ -17,7 +17,7 @@ export const mockSiteContent: SiteContent = {
     'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=1600&q=80',
   aboutImage:
     'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1200&q=80',
-  logo: 'https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=128&h=128&q=80',
+  // Pas de logo enrichi → favicon DA `/images/favicon.svg` (jamais une photo).
   gallery: [
     {
       url: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=1600&q=80',
@@ -98,8 +98,8 @@ export const mockSiteContent: SiteContent = {
     { day: 'Dimanche', hours: 'Fermé' },
   ],
   social: [
-    { network: 'instagram', url: 'https://www.instagram.com/' },
-    { network: 'facebook', url: 'https://www.facebook.com/' },
+    { network: 'instagram', url: 'https://www.instagram.com/atelierbarbiermartin/' },
+    { network: 'facebook', url: 'https://www.facebook.com/atelierbarbiermartin' },
   ],
   zones: ['Lyon 6e', 'Lyon 3e', 'Villeurbanne', 'Caluire'],
   heroBadge: 'BARBIER',

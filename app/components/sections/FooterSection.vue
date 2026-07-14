@@ -130,8 +130,9 @@
       <div class="barber-container barber-footer__copyright-inner">
         <p class="barber-footer__copy-text">{{ page.copyright }}</p>
         <div
+          v-if="page.socials.length"
           class="barber-footer__socials"
-          aria-label="Social links">
+          aria-label="Réseaux sociaux">
           <a
             v-for="social in page.socials"
             :key="social.name"
@@ -139,7 +140,12 @@
             :aria-label="social.label"
             target="_blank"
             rel="noopener noreferrer">
-            <span class="barber-footer__social-fallback">{{ social.label.charAt(0) }}</span>
+            <img
+              class="barber-footer__social-icon"
+              :src="social.icon"
+              :alt="social.label"
+              width="24"
+              height="24" />
           </a>
         </div>
       </div>
@@ -170,8 +176,13 @@ const form = reactive({
 })
 
 function onSubmit(): void {
-  const to: string = props.page.email || 'contact@example.com'
-  const subject = encodeURIComponent(form.subject || 'Demande de rendez-vous')
+  const to: string = props.page.email.trim()
+  if (!to) {
+    return
+  }
+  const subject = encodeURIComponent(
+    form.subject.trim() || `Rendez-vous — ${props.page.businessName}`,
+  )
   const body = encodeURIComponent(
     [
       `Nom : ${form.fullName}`,
@@ -481,20 +492,11 @@ function onSubmit(): void {
   opacity: 0.75;
 }
 
-.barber-footer__social-fallback {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border: 1px solid rgb(255 255 255 / 55%);
-  border-radius: 999px;
-  font-family: 'Barlow', ui-sans-serif, system-ui, sans-serif;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  color: #ffffff;
-  text-transform: uppercase;
+.barber-footer__social-icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 @media (max-width: 1100px) {
