@@ -171,8 +171,8 @@
             href="#"
             aria-label="Pinterest">
             <svg
-              viewBox="0 0 12 24"
-              width="12"
+              viewBox="0 0 19 24"
+              width="19"
               height="24"
               aria-hidden="true">
               <path
@@ -184,9 +184,9 @@
             href="#"
             aria-label="LinkedIn">
             <svg
-              viewBox="0 0 20 18"
-              width="20"
-              height="18"
+              viewBox="0 0 26 24"
+              width="26"
+              height="24"
               aria-hidden="true">
               <path
                 fill="#ffffff"
@@ -252,7 +252,8 @@ function onSubmit(): void {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  /* Pencil image sits at top of band (y=0), slight right bias */
+  object-position: 58% 8%;
 }
 
 .barber-footer__contact-gradient {
@@ -281,7 +282,7 @@ function onSubmit(): void {
   letter-spacing: 2.4px;
   line-height: 1.25;
   color: #ffffff;
-  text-transform: lowercase;
+  text-transform: uppercase;
 }
 
 .barber-footer__text {
@@ -407,6 +408,7 @@ function onSubmit(): void {
   letter-spacing: 0.8px;
   line-height: 1.2;
   color: #121212;
+  text-transform: uppercase;
 }
 
 .barber-footer__input,
@@ -449,7 +451,6 @@ function onSubmit(): void {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-height: 499px;
   overflow: hidden;
   background: #d9d9d9;
 }
@@ -457,7 +458,7 @@ function onSubmit(): void {
 .barber-footer__map img {
   display: block;
   width: 100%;
-  height: 499px;
+  height: 640px;
   object-fit: cover;
   object-position: center;
 }
@@ -465,7 +466,7 @@ function onSubmit(): void {
 .barber-footer__copyright {
   position: relative;
   z-index: 2;
-  /* Pencil: copyright y=1092 overlaps map end (624+499=1123) by 31px */
+  /* Keep copyright flush over bottom of taller map */
   margin-top: -31px;
   background: #121212;
   min-height: 80px;
@@ -495,9 +496,20 @@ function onSubmit(): void {
 
 .barber-footer__socials a {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  overflow: visible;
   color: #ffffff;
   text-decoration: none;
   opacity: 0.95;
+}
+
+.barber-footer__socials a svg {
+  display: block;
+  overflow: visible;
+  flex-shrink: 0;
 }
 
 .barber-footer__socials a:hover {
@@ -590,7 +602,7 @@ function onSubmit(): void {
   }
 
   .barber-footer__map img {
-    height: 280px;
+    height: 360px;
   }
 }
 
@@ -610,7 +622,7 @@ function onSubmit(): void {
   }
 
   .barber-footer__map img {
-    height: 220px;
+    height: 280px;
   }
 }
 </style>

@@ -75,6 +75,7 @@
   letter-spacing: 2.4px;
   line-height: 1.2;
   color: #ffffff;
+  text-transform: uppercase;
 }
 
 @media (max-width: 800px) {

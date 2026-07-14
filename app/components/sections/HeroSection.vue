@@ -25,7 +25,7 @@
           <a
             class="btn-barber btn-barber--outline"
             href="#services">
-            browse services
+            Browse services
           </a>
         </div>
       </div>
@@ -70,7 +70,7 @@ const infoItems = [
   {
     label: 'phone',
     icon: '/images/image-import-12.png',
-    lines: ['+62(123)-456-7890', '+62(123)-456-7890'],
+    lines: ['+62(123)-456-7890'],
   },
   {
     label: 'hours',
@@ -129,10 +129,11 @@ const infoItems = [
 
 .barber-hero__title {
   margin: 0;
-  font-size: 72px;
+  font-size: 80px;
   font-weight: 900;
-  line-height: 1.236;
-  letter-spacing: 0;
+  line-height: 1.12;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .barber-hero__subtitle {
@@ -191,6 +192,7 @@ const infoItems = [
   letter-spacing: 1.2px;
   line-height: 1.5;
   color: #121212;
+  text-transform: uppercase;
 }
 
 .barber-hero__info-item .barber-accent-line {

@@ -112,6 +112,7 @@ const services = [
   letter-spacing: 2.4px;
   line-height: 0.875; /* 42px tall in Pencil */
   color: #121212;
+  text-transform: uppercase;
 }
 
 .barber-services__text {
@@ -155,6 +156,7 @@ const services = [
   letter-spacing: 1.2px;
   line-height: 1.2;
   color: #121212;
+  text-transform: uppercase;
 }
 
 .barber-services__item-desc {

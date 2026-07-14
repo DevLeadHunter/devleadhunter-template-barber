@@ -15,7 +15,7 @@
           </div>
           <div class="barber-about__stat">
             <p class="barber-about__stat-value font-display">10+</p>
-            <p class="barber-about__stat-label font-display">years of experience</p>
+            <p class="barber-about__stat-label font-display">Years of experience</p>
           </div>
         </div>
       </div>
@@ -59,6 +59,7 @@
   letter-spacing: 2.4px;
   line-height: 1.1667;
   color: #121212;
+  text-transform: uppercase;
 }
 
 .barber-about__text {
@@ -85,7 +86,7 @@
   font-weight: 800;
   letter-spacing: 2.4px;
   line-height: 1;
-  color: #121212;
+  color: #dec7a6;
 }
 
 .barber-about__stat-label {
@@ -96,6 +97,7 @@
   letter-spacing: 1px;
   line-height: 1.35;
   color: #121212;
+  text-transform: uppercase;
 }
 
 .barber-about__media {
@@ -141,6 +143,13 @@
     justify-self: stretch;
     max-width: none;
     order: -1;
+  }
+}
+
+@media (max-width: 700px) {
+  .barber-about__stats {
+    grid-template-columns: 1fr;
+    row-gap: 28px;
   }
 }
 
