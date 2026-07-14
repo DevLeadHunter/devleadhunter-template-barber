@@ -47,7 +47,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 42%;
+  /* Pencil: visible band crops lower portion; keep left client fully in frame */
+  object-position: 12% 58%;
 }
 
 .barber-cta__gradient {

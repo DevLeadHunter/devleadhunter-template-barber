@@ -228,15 +228,18 @@ function onSubmit(): void {
 <style scoped>
 .barber-footer {
   background: #f8f5ef;
+  overflow: visible;
+  isolation: isolate;
 }
 
 .barber-footer__contact {
   position: relative;
-  z-index: 2;
-  /* Pencil: dark band 641; form 151→751 overlaps map at 624 by 127 */
+  z-index: 3;
+  /* Pencil dark band exactly 641; form overflows onto map */
+  height: 641px;
   min-height: 641px;
   padding: 135px 0 0;
-  margin-bottom: -127px;
+  margin-bottom: 0;
   overflow: visible;
   background: #121212;
 }
@@ -244,7 +247,6 @@ function onSubmit(): void {
 .barber-footer__contact-media {
   position: absolute;
   inset: 0;
-  bottom: 127px;
   overflow: hidden;
 }
 
@@ -265,7 +267,7 @@ function onSubmit(): void {
 
 .barber-footer__contact-grid {
   position: relative;
-  z-index: 1;
+  z-index: 4;
   display: grid;
   grid-template-columns: minmax(0, 493px) minmax(0, 600px);
   justify-content: space-between;
@@ -347,6 +349,7 @@ function onSubmit(): void {
 
 .barber-footer__form {
   position: relative;
+  z-index: 5;
   justify-self: end;
   width: 600px;
   max-width: 100%;
@@ -451,6 +454,8 @@ function onSubmit(): void {
   position: relative;
   z-index: 1;
   width: 100%;
+  /* Stick flush under the 641px appointment band; form overlays via z-index */
+  margin-top: 0;
   overflow: hidden;
   background: #d9d9d9;
 }
@@ -518,13 +523,14 @@ function onSubmit(): void {
 
 @media (max-width: 1100px) {
   .barber-footer__contact {
+    height: auto;
     min-height: 0;
     padding: 56px 0 40px;
     margin-bottom: 0;
   }
 
   .barber-footer__contact-media {
-    bottom: 0;
+    inset: 0;
   }
 
   .barber-footer__contact-grid {

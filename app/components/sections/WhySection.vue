@@ -94,16 +94,11 @@
             class="barber-why__tripadvisor-icon"
             viewBox="0 0 48 48"
             aria-hidden="true">
-            <circle
-              cx="24"
-              cy="24"
-              r="22"
-              fill="#00AF87" />
             <path
-              fill="#ffffff"
-              d="M24 12c-5.2 0-9.8 1.9-13.2 4.9l2.9 3.1c2.5-2.1 5.7-3.4 9.3-3.4s6.8 1.3 9.3 3.4l2.9-3.1C33.8 13.9 29.2 12 24 12zm-8.2 11.2a4.9 4.9 0 1 0 0 9.8 4.9 4.9 0 0 0 0-9.8zm16.4 0a4.9 4.9 0 1 0 0 9.8 4.9 4.9 0 0 0 0-9.8zM24 18.8c-3.5 0-6.5 2.3-7.4 5.5 1.5-1 3.4-1.6 5.4-1.6s3.9.6 5.4 1.6c-.9-3.2-3.9-5.5-7.4-5.5zm-5.8 7.3a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm11.6 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z" />
+              fill="#121212"
+              d="M21 42c11.59798 0 21-9.40202 21-21 0-11.59798-9.40202-21-21-21-11.59798 0-21 9.40202-21 21 0 11.59798 9.40202 21 21 21z m12.97069-25.09682l2.53409-2.75701-5.61956 0c-2.81328-1.92171-6.21086-3.04091-9.88527-3.04091-3.66976 0-7.05786 1.12161-9.86649 3.04091l-5.63362 0 2.53408 2.75701c-1.55327 1.41718-2.52702 3.45856-2.52702 5.72515 0 4.27743 3.46798 7.74535 7.74541 7.74535 2.03196 0 3.88321-0.78367 5.26524-2.06481l2.48246 2.70303 2.48246-2.70067c1.38203 1.28114 3.23093 2.06246 5.26289 2.06245 4.27743 0 7.75006-3.46792 7.75006-7.74535 0.00229-2.26895-0.97139-4.31028-2.52473-5.72515z m-20.71609 10.96691c-2.89545 0-5.24176-2.34631-5.24176-5.24176 0-2.89545 2.34636-5.24182 5.24176-5.24181 2.8954 0 5.24176 2.34636 5.24176 5.24181 0 2.89545-2.34636 5.24176-5.24176 5.24176z m7.74771-5.39427c0-3.4492-2.50824-6.41029-5.81899-7.67501 1.79026-0.74853 3.75418-1.16382 5.81663-1.16382 2.06245 0 4.02867 0.41529 5.81899 1.16382-3.30834 1.26707-5.81664 4.22587-5.81663 7.67501z m7.74541 5.39427c-2.89545 0-5.24182-2.34631-5.24182-5.24176 0-2.89545 2.34636-5.24182 5.24182-5.24181 2.89546 0 5.24176 2.34636 5.24175 5.24181 0 2.89545-2.34636 5.24176-5.24175 5.24176z m0-7.99176c-1.51813 0-2.74765 1.22952-2.74765 2.74765 0 1.51807 1.22952 2.74759 2.74765 2.74759 1.51807 0 2.74759-1.22951 2.74758-2.74759-0.00006-1.51578-1.22952-2.74764-2.74758-2.74765z m-12.74553 2.75c0 1.51807-1.22951 2.74759-2.74759 2.74759-1.51807 0-2.74759-1.22951-2.74758-2.74759 0-1.51813 1.22951-2.74765 2.74758-2.74764 1.51807-0.00235 2.74759 1.22951 2.74759 2.74764z" />
           </svg>
-          <p class="barber-why__rating-brand font-display">TRIPADVISOR</p>
+          <p class="barber-why__rating-brand font-display">tripadvisor</p>
           <p class="barber-why__rating-score font-display">5.0</p>
           <div
             class="barber-why__stars"
@@ -223,13 +218,30 @@ const cards = [
 }
 
 .barber-why__testimonials {
-  display: grid;
-  grid-template-columns: 146px minmax(0, 600px) 280px;
-  align-items: start;
-  justify-content: space-between;
-  gap: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
   /* Pencil: testimonials y=725, cards block ends ~583 → gap 142 */
   margin-top: 142px;
+}
+
+.barber-why__testimonials > .barber-why__rating:first-child {
+  width: 152px;
+  flex-shrink: 0;
+}
+
+.barber-why__testimonials > .barber-why__quote {
+  width: 600px;
+  max-width: 600px;
+  flex-shrink: 0;
+  margin-left: 104px;
+}
+
+.barber-why__testimonials > .barber-why__rating:last-child {
+  width: 280px;
+  flex-shrink: 0;
+  margin-left: 17px;
 }
 
 .barber-why__rating {
@@ -368,9 +380,17 @@ const cards = [
   }
 
   .barber-why__testimonials {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: center;
     margin-top: 64px;
-    justify-items: center;
+  }
+
+  .barber-why__testimonials > .barber-why__rating:first-child,
+  .barber-why__testimonials > .barber-why__rating:last-child,
+  .barber-why__testimonials > .barber-why__quote {
+    width: 100%;
+    max-width: 600px;
+    margin-left: 0;
   }
 
   .barber-why__rating {

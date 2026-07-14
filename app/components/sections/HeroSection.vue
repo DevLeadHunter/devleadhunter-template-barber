@@ -129,10 +129,12 @@ const infoItems = [
 
 .barber-hero__title {
   margin: 0;
-  font-size: 80px;
+  max-width: 1026px;
+  margin-inline: auto;
+  font-size: 72px;
   font-weight: 900;
-  line-height: 1.12;
-  letter-spacing: 0.02em;
+  line-height: 1.236;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
 }
 

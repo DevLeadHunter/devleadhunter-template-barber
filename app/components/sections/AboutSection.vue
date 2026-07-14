@@ -10,11 +10,17 @@
         </p>
         <div class="barber-about__stats">
           <div class="barber-about__stat">
-            <p class="barber-about__stat-value font-display">99%</p>
+            <p class="barber-about__stat-value font-display">
+              <span class="barber-about__stat-num">99</span
+              ><span class="barber-about__stat-sym">%</span>
+            </p>
             <p class="barber-about__stat-label font-display">Customer Satisfaction</p>
           </div>
           <div class="barber-about__stat">
-            <p class="barber-about__stat-value font-display">10+</p>
+            <p class="barber-about__stat-value font-display">
+              <span class="barber-about__stat-num">10</span
+              ><span class="barber-about__stat-sym">+</span>
+            </p>
             <p class="barber-about__stat-label font-display">Years of experience</p>
           </div>
         </div>
@@ -86,6 +92,14 @@
   font-weight: 800;
   letter-spacing: 2.4px;
   line-height: 1;
+  color: #121212;
+}
+
+.barber-about__stat-num {
+  color: #121212;
+}
+
+.barber-about__stat-sym {
   color: #dec7a6;
 }
 
@@ -150,6 +164,19 @@
   .barber-about__stats {
     grid-template-columns: 1fr;
     row-gap: 28px;
+    justify-items: center;
+    text-align: center;
+    max-width: none;
+  }
+
+  .barber-about__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .barber-about__stat-label {
+    max-width: none;
   }
 }
 
