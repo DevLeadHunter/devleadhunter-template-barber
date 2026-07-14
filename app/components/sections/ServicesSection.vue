@@ -92,7 +92,7 @@ const services = [
 
 <style scoped>
 .barber-services {
-  padding: 0 0 120px;
+  padding: 0 0 151px;
 }
 
 .barber-services__inner {
@@ -128,7 +128,7 @@ const services = [
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 72px;
   row-gap: 80px;
-  margin-top: 74px;
+  margin-top: 78px;
   min-height: 826px;
   padding: 93px 95px;
   background: #ffffff;

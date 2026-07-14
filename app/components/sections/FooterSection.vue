@@ -61,7 +61,7 @@
         <form
           class="barber-footer__form barber-card-shadow"
           @submit.prevent="onSubmit">
-          <label class="barber-footer__field">
+          <label class="barber-footer__field barber-footer__field--name">
             <span class="barber-footer__field-label font-display">Full name</span>
             <input
               v-model="form.fullName"
@@ -70,7 +70,7 @@
               name="fullName"
               autocomplete="name" />
           </label>
-          <label class="barber-footer__field">
+          <label class="barber-footer__field barber-footer__field--subject">
             <span class="barber-footer__field-label font-display">subject</span>
             <input
               v-model="form.subject"
@@ -78,26 +78,24 @@
               type="text"
               name="subject" />
           </label>
-          <div class="barber-footer__field-row">
-            <label class="barber-footer__field">
-              <span class="barber-footer__field-label font-display"> phone number </span>
-              <input
-                v-model="form.phone"
-                class="barber-footer__input"
-                type="tel"
-                name="phone"
-                autocomplete="tel" />
-            </label>
-            <label class="barber-footer__field">
-              <span class="barber-footer__field-label font-display"> email address </span>
-              <input
-                v-model="form.email"
-                class="barber-footer__input"
-                type="email"
-                name="email"
-                autocomplete="email" />
-            </label>
-          </div>
+          <label class="barber-footer__field barber-footer__field--phone">
+            <span class="barber-footer__field-label font-display">phone number</span>
+            <input
+              v-model="form.phone"
+              class="barber-footer__input"
+              type="tel"
+              name="phone"
+              autocomplete="tel" />
+          </label>
+          <label class="barber-footer__field barber-footer__field--email">
+            <span class="barber-footer__field-label font-display">email address</span>
+            <input
+              v-model="form.email"
+              class="barber-footer__input"
+              type="email"
+              name="email"
+              autocomplete="email" />
+          </label>
           <label class="barber-footer__field barber-footer__field--message">
             <span class="barber-footer__field-label font-display">
               Please type your message here...
@@ -105,8 +103,7 @@
             <textarea
               v-model="form.message"
               class="barber-footer__textarea"
-              name="message"
-              rows="5" />
+              name="message" />
           </label>
           <button
             class="btn-barber barber-footer__submit"
@@ -236,9 +233,9 @@ function onSubmit(): void {
 .barber-footer__contact {
   position: relative;
   z-index: 2;
-  /* Pencil: band 641; form hangs over map (~127px) */
+  /* Pencil: dark band 641; form 151→751 overlaps map at 624 by 127 */
   min-height: 641px;
-  padding: 80px 0 0;
+  padding: 135px 0 0;
   margin-bottom: -127px;
   overflow: visible;
   background: #121212;
@@ -348,44 +345,84 @@ function onSubmit(): void {
 }
 
 .barber-footer__form {
-  display: flex;
-  flex-direction: column;
-  gap: 34px;
-  width: 100%;
-  max-width: 600px;
-  min-height: 600px;
-  padding: 37px 41px 40px;
+  position: relative;
+  justify-self: end;
+  width: 600px;
+  max-width: 100%;
+  height: 600px;
+  margin-top: 16px; /* Pencil: form y=151 vs text y=135 */
+  padding: 0;
   background: #ffffff;
   box-sizing: border-box;
 }
 
 .barber-footer__field {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+  position: absolute;
+  display: block;
+  margin: 0;
 }
 
-.barber-footer__field-row {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 19px;
+.barber-footer__field--name {
+  left: 41px;
+  top: 37px;
+  width: 519px;
+  height: 45px;
+}
+
+.barber-footer__field--subject {
+  left: 41px;
+  top: 114px;
+  width: 519px;
+  height: 45px;
+}
+
+.barber-footer__field--phone {
+  left: 41px;
+  top: 191px;
+  width: 250px;
+  height: 45px;
+}
+
+.barber-footer__field--email {
+  left: 310px;
+  top: 191px;
+  width: 250px;
+  height: 45px;
+}
+
+.barber-footer__field--message {
+  left: 41px;
+  top: 272px;
+  width: 520px;
+  height: 177px;
 }
 
 .barber-footer__field-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: 'Barlow', ui-sans-serif, system-ui, sans-serif;
   font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.8px;
+  line-height: 1.2;
   color: #121212;
 }
 
 .barber-footer__input,
 .barber-footer__textarea {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
   width: 100%;
+  height: 45px;
+  margin: 0;
   border: none;
   border-bottom: 2px solid #121212;
   border-radius: 0;
   background: transparent;
-  padding: 0 0 12px;
+  padding: 22px 0 0;
   font-family: 'Work Sans', ui-sans-serif, system-ui, sans-serif;
   font-size: 16px;
   color: #121212;
@@ -394,19 +431,18 @@ function onSubmit(): void {
 }
 
 .barber-footer__textarea {
-  min-height: 140px;
-  resize: vertical;
-  border-bottom-width: 2px;
-}
-
-.barber-footer__field--message {
-  gap: 24px;
+  height: 177px;
+  padding-top: 28px;
+  resize: none;
 }
 
 .barber-footer__submit {
+  position: absolute;
+  left: 41px;
+  top: 490px;
   width: 300px;
-  max-width: 100%;
-  margin-top: 8px;
+  max-width: calc(100% - 82px);
+  margin: 0;
 }
 
 .barber-footer__map {
@@ -427,6 +463,10 @@ function onSubmit(): void {
 }
 
 .barber-footer__copyright {
+  position: relative;
+  z-index: 2;
+  /* Pencil: copyright y=1092 overlaps map end (624+499=1123) by 31px */
+  margin-top: -31px;
   background: #121212;
   min-height: 80px;
 }
@@ -489,17 +529,51 @@ function onSubmit(): void {
   }
 
   .barber-footer__form {
-    min-height: auto;
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 0;
     max-width: none;
-    padding: 28px 24px;
+    margin-top: 0;
+    padding: 28px 24px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
   }
 
-  .barber-footer__field-row {
-    grid-template-columns: 1fr;
+  .barber-footer__field {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .barber-footer__field-label {
+    position: static;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .barber-footer__input,
+  .barber-footer__textarea {
+    position: static;
+    width: 100%;
+    height: 45px;
+    padding: 0 0 8px;
+  }
+
+  .barber-footer__textarea {
+    height: 140px;
+    min-height: 140px;
   }
 
   .barber-footer__submit {
+    position: static;
+    left: auto;
+    top: auto;
     width: 100%;
+    max-width: none;
   }
 
   .barber-footer__copyright-inner {

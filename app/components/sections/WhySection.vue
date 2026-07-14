@@ -49,7 +49,7 @@
               ★
             </span>
           </div>
-          <p class="barber-why__rating-count font-display">196 reviews</p>
+          <p class="barber-why__rating-count">196 reviews</p>
         </div>
 
         <blockquote class="barber-why__quote">
@@ -101,7 +101,7 @@
               ★
             </span>
           </div>
-          <p class="barber-why__rating-count font-display">196 reviews</p>
+          <p class="barber-why__rating-count">196 reviews</p>
         </div>
       </div>
     </div>
@@ -131,8 +131,8 @@ const cards = [
 <style scoped>
 .barber-why {
   background: #ffffff;
-  /* Pencil: Why at 3722, content Why choose us at +136 */
-  padding: 136px 0 100px;
+  /* Pencil: Why band 1289; content at +136; bottom pad 150 */
+  padding: 136px 0 150px;
 }
 
 .barber-why__inner {
@@ -169,8 +169,8 @@ const cards = [
   grid-template-columns: repeat(3, minmax(0, 280px));
   justify-content: space-between;
   gap: 24px;
-  /* cards at y=228 under header block (~42+40+76=158) → ~70 */
-  margin-top: 70px;
+  /* cards at y=228 under header block (~158) → ~70; +4 for header 154 vs 158 */
+  margin-top: 74px;
 }
 
 .barber-why__card {
@@ -187,7 +187,7 @@ const cards = [
 }
 
 .barber-why__card-title {
-  margin: 16px 0 0;
+  margin: 4px 0 0;
   font-size: 24px;
   font-weight: 800;
   letter-spacing: 1.2px;
@@ -200,7 +200,7 @@ const cards = [
 }
 
 .barber-why__card-text {
-  margin: 20px 0 0;
+  margin: 15px 0 0;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
@@ -213,8 +213,8 @@ const cards = [
   align-items: start;
   justify-content: space-between;
   gap: 24px;
-  /* Testimonials at y=725, cards ~228+220 → margin ~277 */
-  margin-top: 200px;
+  /* Pencil: testimonials y=725, cards block ends ~583 → gap 142 */
+  margin-top: 142px;
 }
 
 .barber-why__rating {
@@ -271,9 +271,10 @@ const cards = [
 
 .barber-why__rating-count {
   margin: 18px 0 0;
+  font-family: 'Work Sans', ui-sans-serif, system-ui, sans-serif;
   font-size: 24px;
   font-weight: 400;
-  letter-spacing: 0.8px;
+  letter-spacing: normal;
   line-height: 1;
   color: #121212;
 }

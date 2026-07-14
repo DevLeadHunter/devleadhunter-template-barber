@@ -80,7 +80,9 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   gap: 10px;
+  min-height: 62px;
   padding: 20px 30px;
   border: none;
   border-radius: 0;
