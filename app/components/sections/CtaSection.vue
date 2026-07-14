@@ -13,9 +13,7 @@
     </div>
     <div class="barber-cta__content">
       <h2 class="barber-cta__title font-display">
-        Experience the luxury of concierge barber services
-        <br />
-        at your home
+        Experience the luxury of concierge barber services<br />at your home
       </h2>
       <a
         class="btn-barber"
@@ -32,7 +30,7 @@
 .barber-cta {
   position: relative;
   width: 100%;
-  min-height: 569px;
+  height: 569px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,7 +47,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: center 42%;
 }
 
 .barber-cta__gradient {
@@ -67,16 +65,31 @@
   align-items: center;
   gap: 46px;
   width: min(814px, calc(100% - 40px));
-  padding: 80px 0;
   text-align: center;
 }
 
 .barber-cta__title {
   margin: 0;
-  font-size: clamp(32px, 3.4vw, 48px);
+  font-size: 48px;
   font-weight: 800;
   letter-spacing: 2.4px;
   line-height: 1.2;
   color: #ffffff;
+}
+
+@media (max-width: 800px) {
+  .barber-cta {
+    height: auto;
+    min-height: 420px;
+    padding: 64px 0;
+  }
+
+  .barber-cta__title {
+    font-size: clamp(28px, 7vw, 40px);
+  }
+
+  .barber-cta__content {
+    gap: 28px;
+  }
 }
 </style>

@@ -235,15 +235,20 @@ function onSubmit(): void {
 
 .barber-footer__contact {
   position: relative;
+  z-index: 2;
+  /* Pencil: band 641; form hangs over map (~127px) */
   min-height: 641px;
-  padding: 80px 0 72px;
-  overflow: hidden;
+  padding: 80px 0 0;
+  margin-bottom: -127px;
+  overflow: visible;
   background: #121212;
 }
 
 .barber-footer__contact-media {
   position: absolute;
   inset: 0;
+  bottom: 127px;
+  overflow: hidden;
 }
 
 .barber-footer__contact-img {
@@ -268,12 +273,13 @@ function onSubmit(): void {
   justify-content: space-between;
   gap: 40px;
   align-items: start;
+  padding-bottom: 0;
 }
 
 .barber-footer__title {
   margin: 0;
   max-width: 493px;
-  font-size: clamp(36px, 3.4vw, 48px);
+  font-size: 48px;
   font-weight: 800;
   letter-spacing: 2.4px;
   line-height: 1.25;
@@ -404,6 +410,8 @@ function onSubmit(): void {
 }
 
 .barber-footer__map {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-height: 499px;
   overflow: hidden;
@@ -456,22 +464,42 @@ function onSubmit(): void {
   opacity: 0.75;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
   .barber-footer__contact {
+    min-height: 0;
     padding: 56px 0 40px;
+    margin-bottom: 0;
+  }
+
+  .barber-footer__contact-media {
+    bottom: 0;
   }
 
   .barber-footer__contact-grid {
     grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .barber-footer__title {
+    font-size: clamp(32px, 6vw, 44px);
+  }
+
+  .barber-footer__channel {
+    gap: 20px;
   }
 
   .barber-footer__form {
     min-height: auto;
+    max-width: none;
     padding: 28px 24px;
   }
 
   .barber-footer__field-row {
     grid-template-columns: 1fr;
+  }
+
+  .barber-footer__submit {
+    width: 100%;
   }
 
   .barber-footer__copyright-inner {
@@ -481,8 +509,34 @@ function onSubmit(): void {
     text-align: center;
   }
 
+  .barber-footer__socials {
+    gap: 22px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
   .barber-footer__map img {
     height: 280px;
+  }
+}
+
+@media (max-width: 600px) {
+  .barber-footer__contact {
+    padding: 40px 0 28px;
+  }
+
+  .barber-footer__channels {
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .barber-footer__channel-icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .barber-footer__map img {
+    height: 220px;
   }
 }
 </style>

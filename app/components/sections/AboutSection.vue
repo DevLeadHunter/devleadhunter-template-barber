@@ -34,7 +34,8 @@
 
 <style scoped>
 .barber-about {
-  padding: 120px 0 80px;
+  /* Pencil: info bottom 953 → about y 1103 = 150px gap */
+  padding: 150px 0 144px;
 }
 
 .barber-about__grid {
@@ -42,16 +43,21 @@
   grid-template-columns: minmax(0, 493px) minmax(0, 603px);
   justify-content: space-between;
   align-items: start;
-  gap: 48px;
+  /* image at x=637, copy width area from 0 → gap ≈ 144 */
+  gap: 144px;
+}
+
+.barber-about__copy {
+  padding-top: 83px; /* Pencil: Text group y=83 vs Image y=0 */
 }
 
 .barber-about__title {
   margin: 0;
   max-width: 419px;
-  font-size: clamp(36px, 3.4vw, 48px);
+  font-size: 48px;
   font-weight: 800;
   letter-spacing: 2.4px;
-  line-height: 1.17;
+  line-height: 1.1667;
   color: #121212;
 }
 
@@ -66,9 +72,10 @@
 
 .barber-about__stats {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 40px;
-  margin-top: 48px;
+  grid-template-columns: 173px 132px;
+  justify-content: start;
+  column-gap: 89px;
+  margin-top: 21px;
   max-width: 420px;
 }
 
@@ -106,9 +113,13 @@
   object-fit: cover;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
   .barber-about {
     padding: 72px 0 48px;
+  }
+
+  .barber-about__copy {
+    padding-top: 0;
   }
 
   .barber-about__grid {
@@ -116,9 +127,27 @@
     gap: 32px;
   }
 
+  .barber-about__title {
+    font-size: clamp(32px, 7vw, 48px);
+  }
+
+  .barber-about__stats {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    margin-top: 32px;
+  }
+
   .barber-about__media {
     justify-self: stretch;
     max-width: none;
+    order: -1;
+  }
+}
+
+@media (min-width: 1101px) and (max-width: 1280px) {
+  .barber-about__grid {
+    gap: 48px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
   }
 }
 </style>

@@ -131,6 +131,7 @@ const cards = [
 <style scoped>
 .barber-why {
   background: #ffffff;
+  /* Pencil: Why at 3722, content Why choose us at +136 */
   padding: 136px 0 100px;
 }
 
@@ -146,10 +147,10 @@ const cards = [
 
 .barber-why__title {
   margin: 0;
-  font-size: clamp(36px, 3.4vw, 48px);
+  font-size: 48px;
   font-weight: 800;
   letter-spacing: 2.4px;
-  line-height: 1.1;
+  line-height: 0.875;
   color: #121212;
   text-transform: lowercase;
 }
@@ -168,7 +169,8 @@ const cards = [
   grid-template-columns: repeat(3, minmax(0, 280px));
   justify-content: space-between;
   gap: 24px;
-  margin-top: 92px;
+  /* cards at y=228 under header block (~42+40+76=158) → ~70 */
+  margin-top: 70px;
 }
 
 .barber-why__card {
@@ -211,7 +213,8 @@ const cards = [
   align-items: start;
   justify-content: space-between;
   gap: 24px;
-  margin-top: 120px;
+  /* Testimonials at y=725, cards ~228+220 → margin ~277 */
+  margin-top: 200px;
 }
 
 .barber-why__rating {
@@ -334,11 +337,17 @@ const cards = [
     padding: 72px 0 64px;
   }
 
+  .barber-why__title {
+    font-size: clamp(32px, 7vw, 48px);
+    line-height: 1.1;
+  }
+
   .barber-why__cards {
     grid-template-columns: 1fr;
     justify-content: center;
     max-width: 360px;
     margin-inline: auto;
+    margin-top: 48px;
   }
 
   .barber-why__testimonials {
@@ -351,9 +360,26 @@ const cards = [
     padding-top: 0;
   }
 
+  .barber-why__rating-score {
+    font-size: clamp(64px, 16vw, 92px);
+  }
+
   .barber-why__quote {
     width: 100%;
     max-width: 600px;
+  }
+
+  .barber-why__quote-body {
+    min-height: 0;
+    padding: 72px 24px 32px;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .barber-why__cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: none;
+    gap: 16px;
   }
 }
 </style>

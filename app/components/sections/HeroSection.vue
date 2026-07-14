@@ -10,25 +10,24 @@
       <div
         class="barber-hero__gradient"
         aria-hidden="true" />
-    </div>
-
-    <div class="barber-hero__content">
-      <h1 class="barber-hero__title font-display">
-        The ultimate convenience<br />
-        for busy people
-      </h1>
-      <p class="barber-hero__subtitle">Experience the Convenience of In-Home Barber Services</p>
-      <div class="barber-hero__actions">
-        <a
-          class="btn-barber"
-          href="#contact">
-          Book an Appointment
-        </a>
-        <a
-          class="btn-barber btn-barber--outline"
-          href="#services">
-          browse services
-        </a>
+      <div class="barber-hero__content">
+        <h1 class="barber-hero__title font-display">
+          The ultimate convenience<br />
+          for busy people
+        </h1>
+        <p class="barber-hero__subtitle">Experience the Convenience of In-Home Barber Services</p>
+        <div class="barber-hero__actions">
+          <a
+            class="btn-barber"
+            href="#contact">
+            Book an Appointment
+          </a>
+          <a
+            class="btn-barber btn-barber--outline"
+            href="#services">
+            browse services
+          </a>
+        </div>
       </div>
     </div>
 
@@ -76,16 +75,17 @@ const infoItems = [
   {
     label: 'hours',
     icon: '/images/image-import-10.png',
-    lines: ['Mon - Sat: 9AM - 8PM', 'Sun: 9AM - 6PM'],
+    lines: ['Mon – Sat: 9AM – 8PM', 'Sun: 9AM – 6PM'],
   },
 ] as const
 </script>
 
 <style scoped>
+/* Pencil @1440: media 864, infobox top 720 → section 953 */
 .barber-hero {
   position: relative;
   width: 100%;
-  padding-bottom: 140px;
+  height: 953px;
 }
 
 .barber-hero__media {
@@ -102,7 +102,7 @@ const infoItems = [
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center 65%;
 }
 
 .barber-hero__gradient {
@@ -110,7 +110,8 @@ const infoItems = [
   left: 0;
   right: 0;
   bottom: 0;
-  height: 781px;
+  height: 90%;
+  max-height: 781px;
   background: linear-gradient(164deg, #121212 0%, rgb(18 18 18 / 0%) 49.5%);
   pointer-events: none;
 }
@@ -128,42 +129,42 @@ const infoItems = [
 
 .barber-hero__title {
   margin: 0;
-  font-size: clamp(40px, 5vw, 72px);
+  font-size: 72px;
   font-weight: 900;
-  line-height: 1.24;
+  line-height: 1.236;
   letter-spacing: 0;
 }
 
 .barber-hero__subtitle {
   margin: 15px 0 0;
   font-family: 'Work Sans', ui-sans-serif, system-ui, sans-serif;
-  font-size: clamp(18px, 2vw, 24px);
+  font-size: 24px;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.1667;
 }
 
 .barber-hero__actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 24px;
-  margin-top: 44px;
+  gap: 68px;
+  margin-top: 41px;
 }
 
 .barber-hero__infobox-wrap {
   position: absolute;
   left: 50%;
-  bottom: 0;
+  top: 720px;
   z-index: 3;
   width: min(1240px, calc(100% - 40px));
   transform: translateX(-50%);
 }
 
 .barber-hero__infobox {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-  min-height: 233px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 233px;
   padding: 40px 67px;
   background: #ffffff;
   box-sizing: border-box;
@@ -173,6 +174,7 @@ const infoItems = [
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 253px;
   text-align: center;
 }
 
@@ -189,7 +191,6 @@ const infoItems = [
   letter-spacing: 1.2px;
   line-height: 1.5;
   color: #121212;
-  text-transform: none;
 }
 
 .barber-hero__info-item .barber-accent-line {
@@ -198,16 +199,83 @@ const infoItems = [
 
 .barber-hero__info-value {
   margin: 16px 0 0;
-  max-width: 253px;
+  width: 100%;
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.9px;
-  line-height: 1.4;
+  line-height: 1.35;
   color: #121212;
 }
 
-@media (max-width: 900px) {
+@media (min-width: 1600px) {
   .barber-hero {
+    height: clamp(953px, 62.7vw, 1200px);
+  }
+
+  .barber-hero__media {
+    height: clamp(864px, 56.7vw, 1080px);
+  }
+
+  .barber-hero__content {
+    top: clamp(316px, 22vw, 400px);
+  }
+
+  .barber-hero__infobox-wrap {
+    top: clamp(720px, 47vw, 900px);
+  }
+}
+
+@media (max-width: 1100px) and (min-width: 701px) {
+  .barber-hero {
+    height: auto;
+    padding-bottom: 48px;
+  }
+
+  .barber-hero__media {
+    height: min(68vh, 680px);
+  }
+
+  .barber-hero__content {
+    top: auto;
+    bottom: 120px;
+    width: min(900px, calc(100% - 48px));
+  }
+
+  .barber-hero__title {
+    font-size: clamp(40px, 5.5vw, 56px);
+  }
+
+  .barber-hero__subtitle {
+    font-size: clamp(18px, 2.2vw, 22px);
+  }
+
+  .barber-hero__actions {
+    gap: 24px;
+  }
+
+  .barber-hero__infobox-wrap {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: calc(100% - 40px);
+    margin: -72px auto 0;
+  }
+
+  .barber-hero__infobox {
+    height: auto;
+    gap: 16px;
+    padding: 32px 40px;
+  }
+
+  .barber-hero__info-item {
+    width: min(220px, 100%);
+  }
+}
+
+@media (max-width: 700px) {
+  .barber-hero {
+    height: auto;
     padding-bottom: 24px;
   }
 
@@ -216,26 +284,63 @@ const infoItems = [
   }
 
   .barber-hero__content {
-    top: 28%;
+    top: auto;
+    bottom: 56px;
+    width: calc(100% - 28px);
+    padding-bottom: 8px;
+  }
+
+  .barber-hero__title {
+    font-size: clamp(28px, 8vw, 34px);
+    line-height: 1.18;
+  }
+
+  .barber-hero__subtitle {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  .barber-hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .barber-hero__actions .btn-barber {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 15px;
   }
 
   .barber-hero__infobox-wrap {
     position: relative;
     left: auto;
-    bottom: auto;
+    top: auto;
     transform: none;
     width: calc(100% - 24px);
-    margin: -48px auto 0;
+    margin: -40px auto 0;
   }
 
   .barber-hero__infobox {
-    grid-template-columns: 1fr;
-    padding: 32px 24px;
-    gap: 32px;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    gap: 28px;
+    padding: 28px 20px;
   }
 
-  .barber-hero__actions {
-    gap: 12px;
+  .barber-hero__info-item {
+    width: min(280px, 100%);
+  }
+
+  .barber-hero__info-label {
+    font-size: 22px;
+  }
+
+  .barber-hero__info-value {
+    font-size: 16px;
   }
 }
 </style>

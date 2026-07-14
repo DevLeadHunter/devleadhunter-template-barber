@@ -26,3 +26,7 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Local QA screenshots / capture scripts
+.qa
+

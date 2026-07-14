@@ -37,9 +37,10 @@ body {
   min-height: 100%;
 }
 
+/* Full-bleed shell: images/bands span the viewport; content stays 1240 (Pencil column) */
 .barber-page {
   width: 100%;
-  max-width: 1440px;
+  max-width: none;
   margin-inline: auto;
   background: #f8f5ef;
   overflow-x: clip;
@@ -53,9 +54,21 @@ body {
   box-sizing: border-box;
 }
 
+@media (min-width: 1280px) {
+  .barber-container {
+    padding-inline: 40px;
+  }
+}
+
 @media (min-width: 1440px) {
   .barber-container {
     padding-inline: 0;
+  }
+}
+
+@media (min-width: 1920px) {
+  .barber-container {
+    max-width: 1240px;
   }
 }
 

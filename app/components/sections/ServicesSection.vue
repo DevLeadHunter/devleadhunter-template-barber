@@ -92,7 +92,7 @@ const services = [
 
 <style scoped>
 .barber-services {
-  padding: 40px 0 80px;
+  padding: 0 0 120px;
 }
 
 .barber-services__inner {
@@ -107,10 +107,10 @@ const services = [
 
 .barber-services__title {
   margin: 0;
-  font-size: clamp(36px, 3.4vw, 48px);
+  font-size: 48px;
   font-weight: 800;
   letter-spacing: 2.4px;
-  line-height: 1.1;
+  line-height: 0.875; /* 42px tall in Pencil */
   color: #121212;
 }
 
@@ -128,7 +128,8 @@ const services = [
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 72px;
   row-gap: 80px;
-  margin-top: 76px;
+  margin-top: 74px;
+  min-height: 826px;
   padding: 93px 95px;
   background: #ffffff;
   box-sizing: border-box;
@@ -157,7 +158,7 @@ const services = [
 }
 
 .barber-services__item-desc {
-  margin: 12px 0 0;
+  margin: 15px 0 0;
   max-width: 300px;
   font-size: 16px;
   font-weight: 400;
@@ -166,7 +167,7 @@ const services = [
 }
 
 .barber-services__item-price {
-  margin: 16px 0 0;
+  margin: 15px 0 0;
   font-size: 24px;
   font-weight: 800;
   letter-spacing: 1.2px;
@@ -177,14 +178,25 @@ const services = [
 .barber-services__cta {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 41px;
 }
 
 @media (max-width: 900px) {
+  .barber-services {
+    padding: 48px 0 72px;
+  }
+
+  .barber-services__title {
+    font-size: clamp(32px, 7vw, 48px);
+    line-height: 1.1;
+  }
+
   .barber-services__card {
     grid-template-columns: 1fr;
     padding: 40px 24px;
     row-gap: 40px;
+    min-height: 0;
+    margin-top: 40px;
   }
 
   .barber-services__item {
