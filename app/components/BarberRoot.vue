@@ -43,9 +43,17 @@ const themeStyle: ComputedRef<StyleValue> = computed((): StyleValue => ({
   '--barber-accent': page.value.theme.accent,
 }))
 
-useHead({
-  title: () => page.value.businessName,
+/** Logo prospect → favicon ; sinon favicon DA de la template. */
+const faviconHref: ComputedRef<string> = computed((): string => {
+  const logo: string = typeof props.content.logo === 'string' ? props.content.logo.trim() : ''
+  return logo.length > 0 ? logo : '/images/favicon.svg'
+})
+
+useHead((): { title: string; link: Array<Record<string, string>> } => ({
+  title: page.value.businessName,
   link: [
+    { rel: 'icon', href: faviconHref.value },
+    { rel: 'apple-touch-icon', href: faviconHref.value },
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
     { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
     {
@@ -53,5 +61,5 @@ useHead({
       href: 'https://fonts.googleapis.com/css2?family=Barlow:wght@700;800;900&family=Work+Sans:wght@400;500;700&display=swap',
     },
   ],
-})
+}))
 </script>

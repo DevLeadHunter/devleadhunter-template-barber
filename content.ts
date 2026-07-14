@@ -17,6 +17,7 @@ export const mockSiteContent: SiteContent = {
     'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=1600&q=80',
   aboutImage:
     'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1200&q=80',
+  logo: 'https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=128&h=128&q=80',
   gallery: [
     {
       url: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=1600&q=80',
@@ -31,8 +32,8 @@ export const mockSiteContent: SiteContent = {
       alt: 'Rasage à l’ancienne',
     },
     {
-      url: '/images/image-import-1.png',
-      alt: 'Plan d’accès',
+      url: 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=1200&q=80',
+      alt: 'Quartier / accès',
     },
     {
       url: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80',

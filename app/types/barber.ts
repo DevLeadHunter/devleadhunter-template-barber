@@ -121,120 +121,126 @@ const SERVICE_ICONS: string[] = [
   '/images/image-import-5.png',
 ]
 
+/** Unsplash fallbacks when enrichment / gallery is thin (mirror of playground mock). */
+const FALLBACK_HERO =
+  'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=1600&q=80'
+const FALLBACK_ABOUT =
+  'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1200&q=80'
+const FALLBACK_MID_CTA =
+  'https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=1400&q=80'
+const FALLBACK_CONTACT =
+  'https://images.unsplash.com/photo-1521590832167-7bcbfaaae1b0?auto=format&fit=crop&w=1400&q=80'
+const FALLBACK_AVATAR =
+  'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80'
+
 const defaults = {
-  heroTitle: 'The ultimate convenience for busy people',
-  heroSubtitle: 'Experience the Convenience of In-Home Barber Services',
-  heroImage: '/images/image-import-3.jpg',
-  ctaPrimary: 'Book an Appointment',
-  ctaSecondary: 'Browse services',
-  aboutHeading: 'Your personal barber service at your home',
+  heroTitle: 'La coupe et la barbe\npour les hommes pressés',
+  heroSubtitle: 'Coupe, barbe et soins pour hommes — un salon de quartier, sur rendez-vous.',
+  heroImage: FALLBACK_HERO,
+  ctaPrimary: 'Prendre rendez-vous',
+  ctaSecondary: 'Voir les prestations',
+  aboutHeading: 'Votre barbier de quartier',
   about:
-    'Nulla egestas sapien integer mi fermentum tellus tristique consequat pulvinar sagittis adipiscing egestas purus et mi tempus semper id vel prci eu magna in senectus sit eget justo',
-  aboutImage: '/images/image-import-1.jpg',
-  address: '3696 Lynden Road, Lefroy Ontario canada',
+    'Salon de coiffure pour hommes : coupes classiques et contemporaines, entretien de barbe et rasage soigné. Accueil sans chichi, diagnostic clair et un résultat net à chaque passage.',
+  aboutImage: FALLBACK_ABOUT,
+  address: 'France',
   stats: [
-    { num: '99', sym: '%', label: 'Customer Satisfaction' },
-    { num: '10', sym: '+', label: 'Years of experience' },
+    { num: '98', sym: '%', label: 'Clients satisfaits' },
+    { num: '10', sym: '+', label: "Années d'expérience" },
   ] as BarberStatItem[],
-  servicesHeading: 'Browse our services',
+  servicesHeading: 'Nos prestations',
   servicesIntro:
-    'Nulla egestas sapien integer mi fermentum tellus tristique consequat pulvinar sagittis adipiscing egestas purus et mi tempus semper id vel prci eu magna in senectus sit eget justo eget.',
+    'Des prestations claires, des tarifs affichés, et le temps qu’il faut pour un résultat net — coupe, barbe ou les deux.',
   services: [
     {
-      title: 'Adult haircut',
-      description:
-        'Nulla egestas sapien integer mi fermentum tellus tristique consequatolm pulvinar sagittis',
-      price: '$39 USD',
+      title: 'Coupe homme',
+      description: 'Shampooing, coupe aux ciseaux ou tondeuse, séchage et conseils d’entretien.',
+      price: '32 €',
       icon: SERVICE_ICONS[0],
     },
     {
-      title: 'Kids Haircut',
-      description:
-        'Nulla egestas sapien integer mi fermentum tellus tristique consequatolm pulvinar sagittis',
-      price: '$19 USD',
+      title: 'Coupe enfant (-12 ans)',
+      description: 'Coupe adaptée aux plus jeunes, en douceur et sans stress.',
+      price: '22 €',
       icon: SERVICE_ICONS[1],
     },
     {
-      title: 'Beard Trim',
-      description:
-        'Nulla egestas sapien integer mi fermentum tellus tristique consequatolm pulvinar sagittis',
-      price: '$29 USD',
+      title: 'Taille de barbe',
+      description: 'Contour, volume et finition rasoir — barbe nette et structurée.',
+      price: '18 €',
       icon: SERVICE_ICONS[2],
     },
     {
-      title: 'Neck Shave',
-      description:
-        'Nulla egestas sapien integer mi fermentum tellus tristique consequatolm pulvinar sagittis',
-      price: '$39 USD',
+      title: 'Rasage traditionnel',
+      description: 'Serviette chaude, mousse, rasoir droit et after-shave.',
+      price: '28 €',
       icon: SERVICE_ICONS[3],
     },
     {
-      title: 'Scalp Moisturizing',
-      description:
-        'Nulla egestas sapien integer mi fermentum tellus tristique consequatolm pulvinar sagittis',
-      price: '$10 USD',
+      title: 'Coupe + barbe',
+      description: 'Le duo signature : coupe complète et entretien de barbe.',
+      price: '45 €',
       icon: SERVICE_ICONS[4],
     },
     {
-      title: 'Beard Grooming',
-      description:
-        'Nulla egestas sapien integer mi fermentum tellus tristique consequatolm pulvinar sagittis',
-      price: '$49 USD',
+      title: 'Soin cuir chevelu',
+      description: 'Massage, masque hydratant et finition adaptée à votre cuir chevelu.',
+      price: '15 €',
       icon: SERVICE_ICONS[5],
     },
   ] as BarberServiceItem[],
-  midCtaTitle: 'Experience the luxury of concierge barber services at your home',
-  midCtaImage: '/images/image-import-2.jpg',
-  midCtaButton: 'Book an Appointment',
-  whyHeading: 'why choose us',
+  midCtaTitle: 'Le luxe d’un vrai salon, sans perdre votre temps',
+  midCtaImage: FALLBACK_MID_CTA,
+  midCtaButton: 'Prendre rendez-vous',
+  whyHeading: 'Pourquoi nous choisir',
   whyIntro:
-    'Nulla egestas sapien integer mi fermentum tellus tristique consequat pulvinar sagittis adipiscing egestas purus et mi tempus semper id vel prci eu magna in senectus sit eget justo eget.',
+    'Un salon de quartier pensé pour les hommes qui veulent une coupe nette, une barbe soignée, et un rendez-vous respecté.',
   whyCards: [
     {
-      title: 'Licensed',
+      title: 'Qualifiés',
       icon: '/images/image-import-14.png',
-      text: 'Our team of licensed and insured barbers follow strict cleanliness and sanitation guidelines for a safe and comfortable experience.',
+      text: 'Barbiers expérimentés, hygiène stricte et produits soignés pour une expérience confortable à chaque visite.',
     },
     {
-      title: 'Masters',
+      title: 'Passionnés',
       icon: '/images/image-import.png',
-      text: 'Our barbers are passionate about their craft and aim to provide high-quality haircuts for every client.',
+      text: 'Coupes classiques ou contemporaines : on prend le temps du diagnostic et d’un résultat que vous osez montrer.',
     },
     {
-      title: 'Trusted',
+      title: 'Recommandés',
       icon: '/images/image-import-2.png',
-      text: 'We have a strong online reputation with a 5-star rating from over 100 thousand satisfied clients.',
+      text: 'Une réputation solide sur Google, bâtie sur des avis clients et un bouche-à-oreille de quartier.',
     },
   ] as BarberWhyCard[],
-  reviewsHeading: 'Reviews',
-  google: { brand: 'GOOGLE', score: '4.9', count: '196 reviews', kind: 'google' as const },
+  reviewsHeading: 'Avis clients',
+  google: { brand: 'GOOGLE', score: '4.9', count: '196 avis', kind: 'google' as const },
   tripadvisor: {
     brand: 'tripadvisor',
     score: '5.0',
-    count: '196 reviews',
+    count: '176 avis',
     kind: 'tripadvisor' as const,
   },
   testimonial: {
-    title: 'THE BEST BARBER Services',
-    text: 'Et proin ut in dignissim sem non a nullam magna lectus urna et dui quam tellus imperdiet sit purus at fringilla scelerisque diam amet fermentum orci fringilla aliquet nulla lectus erat eu auctor',
-    author: 'SAM HOUSTON',
-    avatar: '/images/image-import-8.jpg',
+    title: 'LE MEILLEUR SERVICE BARBIER',
+    text: 'Enfin un barbier qui écoute. Coupe nette, barbe impeccable, et on ressort avec le moral. Je ne vais plus ailleurs.',
+    author: 'JULIEN R.',
+    avatar: FALLBACK_AVATAR,
     rating: 5,
   } as BarberTestimonial,
-  contactHeading: 'make an appointment',
+  contactHeading: 'Prendre rendez-vous',
   contactIntro:
-    'Nulla egestas sapien integer mi fermentum tellus tristique consequat pulvinar sagittis adipiscing egestas purus et mi tempus semper id vel prci eu magna in senectus sit eget justo',
-  contactCallLabel: 'Give us a Call',
-  contactEmailLabel: 'Send us an email',
-  formNameLabel: 'Full name',
-  formSubjectLabel: 'subject',
-  formPhoneLabel: 'phone number',
-  formEmailLabel: 'email address',
-  formMessageLabel: 'Please type your message here...',
-  formSubmitLabel: 'Book an Appointment',
+    'Appelez-nous ou laissez un message : on vous confirme le créneau rapidement. Coupe, barbe ou les deux — à vous de choisir.',
+  contactCallLabel: 'Nous appeler',
+  contactEmailLabel: 'Nous écrire',
+  formNameLabel: 'Nom complet',
+  formSubjectLabel: 'Sujet',
+  formPhoneLabel: 'Téléphone',
+  formEmailLabel: 'Adresse e-mail',
+  formMessageLabel: 'Écrivez votre message ici…',
+  formSubmitLabel: 'Prendre rendez-vous',
   mapImage: '/images/image-import-1.png',
-  contactImage: '/images/image-import-5.jpg',
-  hoursLines: ['Mon – Sat: 9AM – 8PM', 'Sun: 9AM – 6PM'],
+  contactImage: FALLBACK_CONTACT,
+  hoursLines: ['Lun – Sam : 09:00 – 19:00', 'Dimanche : Fermé'],
 }
 
 function resolveText(value: string | undefined, fallback: string): string {
@@ -415,17 +421,17 @@ export function buildBarberContent(content: SiteContent): BarberPageContent {
     ctaSecondary: resolveText(content.ctaQuoteLabel, defaults.ctaSecondary),
     infoItems: [
       {
-        label: 'Address',
+        label: 'Adresse',
         icon: '/images/image-import-15.png',
         lines: [address],
       },
       {
-        label: 'phone',
+        label: 'Téléphone',
         icon: '/images/image-import-12.png',
-        lines: [phoneDisplay || phone || '+62(123)-456-7890'],
+        lines: [phoneDisplay || phone || '01 23 45 67 89'],
       },
       {
-        label: 'hours',
+        label: 'Horaires',
         icon: '/images/image-import-10.png',
         lines: hoursLines,
       },
@@ -448,12 +454,12 @@ export function buildBarberContent(content: SiteContent): BarberPageContent {
     google: {
       ...defaults.google,
       score: avgRating.toFixed(1),
-      count: `${reviewCount} reviews`,
+      count: `${reviewCount} avis`,
     },
     tripadvisor: {
       ...defaults.tripadvisor,
       score: Math.min(5, avgRating + 0.1).toFixed(1),
-      count: `${Math.max(reviewCount - 20, 1)} reviews`,
+      count: `${Math.max(reviewCount - 20, 1)} avis`,
     },
     testimonial: {
       title: defaults.testimonial.title,
@@ -489,6 +495,6 @@ export function buildBarberContent(content: SiteContent): BarberPageContent {
           { name: 'pinterest', href: '#', label: 'Pinterest' },
           { name: 'linkedin', href: '#', label: 'LinkedIn' },
         ],
-    copyright: `© Copyright ${new Date().getFullYear()} ${businessName} - All right reserved`,
+    copyright: `© ${new Date().getFullYear()} ${businessName} — Tous droits réservés`,
   }
 }
