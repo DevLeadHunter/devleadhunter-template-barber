@@ -2,14 +2,14 @@
   <section class="barber-about">
     <div class="barber-container barber-about__grid">
       <div class="barber-about__copy">
-        <h2 class="barber-about__title font-display">{{ page.aboutHeading }}</h2>
+        <h2 class="barber-about__title font-barber-display">{{ page.aboutHeading }}</h2>
         <p class="barber-about__text">{{ page.about }}</p>
         <div class="barber-about__stats">
           <div
             v-for="stat in page.stats"
             :key="stat.label"
             class="barber-about__stat">
-            <p class="barber-about__stat-value font-display">
+            <p class="barber-about__stat-value font-barber-display">
               <span class="barber-about__stat-num">{{ stat.num }}</span
               ><span
                 v-if="stat.sym"
@@ -17,7 +17,7 @@
                 >{{ stat.sym }}</span
               >
             </p>
-            <p class="barber-about__stat-label font-display">{{ stat.label }}</p>
+            <p class="barber-about__stat-label font-barber-display">{{ stat.label }}</p>
           </div>
         </div>
       </div>

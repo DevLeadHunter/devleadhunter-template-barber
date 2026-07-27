@@ -8,15 +8,15 @@
  * Colors / fonts / radii extracted from nodes — do not invent.
  */
 @theme {
-  --font-display: 'Barlow', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: 'Work Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-barber-display: 'Barlow', ui-sans-serif, system-ui, sans-serif;
+  --font-barber-sans: 'Work Sans', ui-sans-serif, system-ui, sans-serif;
 
-  --color-surface: #f8f5ef;
-  --color-surface-card: #ffffff;
-  --color-ink: #121212;
-  --color-accent: #dec7a6;
-  --color-star: #f2c94c;
-  --color-google: #eb4335;
+  --color-barber-surface: #f8f5ef;
+  --color-barber-surface-card: #ffffff;
+  --color-barber-ink: #121212;
+  --color-barber-accent: #dec7a6;
+  --color-barber-star: #f2c94c;
+  --color-barber-google: #eb4335;
 }
 
 html {
@@ -72,7 +72,7 @@ body {
   }
 }
 
-.font-display {
+.font-barber-display {
   font-family: 'Barlow', ui-sans-serif, system-ui, sans-serif;
 }
 

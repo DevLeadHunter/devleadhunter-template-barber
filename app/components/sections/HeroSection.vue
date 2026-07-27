@@ -11,7 +11,7 @@
         class="barber-hero__gradient"
         aria-hidden="true" />
       <div class="barber-hero__content">
-        <h1 class="barber-hero__title font-display">
+        <h1 class="barber-hero__title font-barber-display">
           <template
             v-for="(line, i) in heroTitleLines"
             :key="i">
@@ -46,11 +46,11 @@
             :alt="item.label"
             width="48"
             height="48" />
-          <p class="barber-hero__info-label font-display">
+          <p class="barber-hero__info-label font-barber-display">
             {{ item.label }}
           </p>
           <hr class="barber-accent-line" />
-          <p class="barber-hero__info-value font-display">
+          <p class="barber-hero__info-value font-barber-display">
             <template
               v-for="(line, i) in item.lines"
               :key="i">

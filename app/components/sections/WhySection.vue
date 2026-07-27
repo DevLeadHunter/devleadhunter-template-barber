@@ -2,7 +2,7 @@
   <section class="barber-why">
     <div class="barber-container barber-why__inner">
       <header class="barber-why__header">
-        <h2 class="barber-why__title font-display">{{ page.whyHeading }}</h2>
+        <h2 class="barber-why__title font-barber-display">{{ page.whyHeading }}</h2>
         <p class="barber-why__text">{{ page.whyIntro }}</p>
       </header>
 
@@ -17,7 +17,7 @@
             :alt="card.title"
             width="64"
             height="64" />
-          <h3 class="barber-why__card-title font-display">{{ card.title }}</h3>
+          <h3 class="barber-why__card-title font-barber-display">{{ card.title }}</h3>
           <hr class="barber-accent-line" />
           <p class="barber-why__card-text">{{ card.text }}</p>
         </article>
@@ -46,8 +46,8 @@
               fill="#1976D2"
               d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" />
           </svg>
-          <p class="barber-why__rating-brand font-display">{{ page.google.brand }}</p>
-          <p class="barber-why__rating-score font-display">{{ page.google.score }}</p>
+          <p class="barber-why__rating-brand font-barber-display">{{ page.google.brand }}</p>
+          <p class="barber-why__rating-score font-barber-display">{{ page.google.score }}</p>
           <div
             class="barber-why__stars"
             aria-hidden="true">
@@ -82,9 +82,11 @@
                 ★
               </span>
             </div>
-            <p class="barber-why__quote-title font-display">{{ page.testimonial.title }}</p>
+            <p class="barber-why__quote-title font-barber-display">{{ page.testimonial.title }}</p>
             <p class="barber-why__quote-text">{{ page.testimonial.text }}</p>
-            <cite class="barber-why__quote-author font-display">{{ page.testimonial.author }}</cite>
+            <cite class="barber-why__quote-author font-barber-display">{{
+              page.testimonial.author
+            }}</cite>
           </div>
         </blockquote>
 
@@ -99,8 +101,8 @@
               fill="#34E0A1"
               d="M12.006 4.295c-2.67 0-5.338.784-7.645 2.353H0l1.963 2.135a5.997 5.997 0 0 0 4.041 10.43 5.988 5.988 0 0 0 4.037-1.565L12 19.705l1.959-2.057a5.991 5.991 0 0 0 4.037 1.565 6 6 0 0 0 4.041-10.43L24 6.648h-4.361a13.57 13.57 0 0 0-7.633-2.353zM12 6.436c2.019 0 3.929.545 5.585 1.553l-1.586 1.747a8.068 8.068 0 0 0-4-1.063c-1.453 0-2.818.38-4.005 1.06L6.41 7.986A10.314 10.314 0 0 1 12 6.436zm-6.008 4.247a3.845 3.845 0 1 1 0 7.69 3.845 3.845 0 0 1 0-7.69zm12.016 0a3.845 3.845 0 1 1 0 7.69 3.845 3.845 0 0 1 0-7.69zm-12.016 1.548a2.287 2.287 0 1 0 0 4.574 2.287 2.287 0 0 0 0-4.574zm12.016 0a2.287 2.287 0 1 0 0 4.574 2.287 2.287 0 0 0 0-4.574z" />
           </svg>
-          <p class="barber-why__rating-brand font-display">{{ page.tripadvisor.brand }}</p>
-          <p class="barber-why__rating-score font-display">{{ page.tripadvisor.score }}</p>
+          <p class="barber-why__rating-brand font-barber-display">{{ page.tripadvisor.brand }}</p>
+          <p class="barber-why__rating-score font-barber-display">{{ page.tripadvisor.score }}</p>
           <div
             class="barber-why__stars"
             aria-hidden="true">

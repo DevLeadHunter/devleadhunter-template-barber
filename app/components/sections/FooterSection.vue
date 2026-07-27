@@ -17,7 +17,7 @@
 
       <div class="barber-container barber-footer__contact-grid">
         <div class="barber-footer__intro">
-          <h2 class="barber-footer__title font-display">{{ page.contactHeading }}</h2>
+          <h2 class="barber-footer__title font-barber-display">{{ page.contactHeading }}</h2>
           <p class="barber-footer__text">{{ page.contactIntro }}</p>
 
           <div class="barber-footer__channels">
@@ -41,10 +41,10 @@
                 </svg>
               </span>
               <span>
-                <span class="barber-footer__channel-label font-display">
+                <span class="barber-footer__channel-label font-barber-display">
                   {{ page.contactCallLabel }}
                 </span>
-                <span class="barber-footer__channel-value font-display">
+                <span class="barber-footer__channel-value font-barber-display">
                   {{ page.phoneDisplay || page.phone }}
                 </span>
               </span>
@@ -74,10 +74,12 @@
                 </svg>
               </span>
               <span>
-                <span class="barber-footer__channel-label font-display">
+                <span class="barber-footer__channel-label font-barber-display">
                   {{ page.contactEmailLabel }}
                 </span>
-                <span class="barber-footer__channel-value font-display">{{ page.email }}</span>
+                <span class="barber-footer__channel-value font-barber-display">{{
+                  page.email
+                }}</span>
               </span>
             </a>
           </div>
@@ -87,7 +89,9 @@
           class="barber-footer__form barber-card-shadow"
           @submit.prevent="onSubmit">
           <label class="barber-footer__field barber-footer__field--name">
-            <span class="barber-footer__field-label font-display">{{ page.formNameLabel }}</span>
+            <span class="barber-footer__field-label font-barber-display">{{
+              page.formNameLabel
+            }}</span>
             <input
               v-model="form.fullName"
               class="barber-footer__input"
@@ -96,7 +100,9 @@
               autocomplete="name" />
           </label>
           <label class="barber-footer__field barber-footer__field--subject">
-            <span class="barber-footer__field-label font-display">{{ page.formSubjectLabel }}</span>
+            <span class="barber-footer__field-label font-barber-display">{{
+              page.formSubjectLabel
+            }}</span>
             <input
               v-model="form.subject"
               class="barber-footer__input"
@@ -104,7 +110,9 @@
               name="subject" />
           </label>
           <label class="barber-footer__field barber-footer__field--phone">
-            <span class="barber-footer__field-label font-display">{{ page.formPhoneLabel }}</span>
+            <span class="barber-footer__field-label font-barber-display">{{
+              page.formPhoneLabel
+            }}</span>
             <input
               v-model="form.phone"
               class="barber-footer__input"
@@ -113,7 +121,9 @@
               autocomplete="tel" />
           </label>
           <label class="barber-footer__field barber-footer__field--email">
-            <span class="barber-footer__field-label font-display">{{ page.formEmailLabel }}</span>
+            <span class="barber-footer__field-label font-barber-display">{{
+              page.formEmailLabel
+            }}</span>
             <input
               v-model="form.email"
               class="barber-footer__input"
@@ -122,7 +132,7 @@
               autocomplete="email" />
           </label>
           <label class="barber-footer__field barber-footer__field--message">
-            <span class="barber-footer__field-label font-display">
+            <span class="barber-footer__field-label font-barber-display">
               {{ page.formMessageLabel }}
             </span>
             <textarea

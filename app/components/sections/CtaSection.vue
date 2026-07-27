@@ -12,7 +12,7 @@
         aria-hidden="true" />
     </div>
     <div class="barber-cta__content">
-      <h2 class="barber-cta__title font-display">{{ page.midCtaTitle }}</h2>
+      <h2 class="barber-cta__title font-barber-display">{{ page.midCtaTitle }}</h2>
       <a
         class="btn-barber"
         href="#contact">

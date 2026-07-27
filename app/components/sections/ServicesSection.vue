@@ -4,7 +4,7 @@
     class="barber-services">
     <div class="barber-container barber-services__inner">
       <header class="barber-services__header">
-        <h2 class="barber-services__title font-display">{{ page.servicesHeading }}</h2>
+        <h2 class="barber-services__title font-barber-display">{{ page.servicesHeading }}</h2>
         <p class="barber-services__text">{{ page.servicesIntro }}</p>
       </header>
 
@@ -20,13 +20,13 @@
             width="64"
             height="64" />
           <div class="barber-services__item-copy">
-            <h3 class="barber-services__item-title font-display">
+            <h3 class="barber-services__item-title font-barber-display">
               {{ service.title }}
             </h3>
             <p class="barber-services__item-desc">{{ service.description }}</p>
             <p
               v-if="service.price"
-              class="barber-services__item-price font-display">
+              class="barber-services__item-price font-barber-display">
               {{ service.price }}
             </p>
           </div>
