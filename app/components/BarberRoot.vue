@@ -48,7 +48,7 @@ const faviconHref: ComputedRef<string> = computed((): string => {
   const logo: string = typeof props.content.logo === 'string' ? props.content.logo.trim() : ''
   // Refuse les photos « hero » passées par erreur : un logo est en général SVG/PNG petit.
   if (logo.length === 0) {
-    return '/images/favicon.svg'
+    return '/images/barber/favicon.svg'
   }
   return logo
 })

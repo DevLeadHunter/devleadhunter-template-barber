@@ -118,17 +118,17 @@ export interface BarberPageContent {
 
 /** Icônes sociales (footer sombre) — uniquement les réseaux avec asset. */
 const SOCIAL_ICONS: Record<string, string> = {
-  facebook: '/images/social-facebook.svg',
-  instagram: '/images/social-instagram.svg',
+  facebook: '/images/barber/social-facebook.svg',
+  instagram: '/images/barber/social-instagram.svg',
 }
 
 const SERVICE_ICONS: string[] = [
-  '/images/image-import-8.png',
-  '/images/image-import-9.png',
-  '/images/image-import-4.png',
-  '/images/image-import-3.png',
-  '/images/image-import-6.png',
-  '/images/image-import-5.png',
+  '/images/barber/image-import-8.png',
+  '/images/barber/image-import-9.png',
+  '/images/barber/image-import-4.png',
+  '/images/barber/image-import-3.png',
+  '/images/barber/image-import-6.png',
+  '/images/barber/image-import-5.png',
 ]
 
 /** Unsplash fallbacks when enrichment / gallery is thin (mirror of playground mock). */
@@ -208,17 +208,17 @@ const defaults = {
   whyCards: [
     {
       title: 'Qualifiés',
-      icon: '/images/image-import-14.png',
+      icon: '/images/barber/image-import-14.png',
       text: 'Barbiers expérimentés, hygiène stricte et produits soignés pour une expérience confortable à chaque visite.',
     },
     {
       title: 'Passionnés',
-      icon: '/images/image-import.png',
+      icon: '/images/barber/image-import.png',
       text: 'Coupes classiques ou contemporaines : on prend le temps du diagnostic et d’un résultat que vous osez montrer.',
     },
     {
       title: 'Recommandés',
-      icon: '/images/image-import-2.png',
+      icon: '/images/barber/image-import-2.png',
       text: 'Une réputation solide sur Google, bâtie sur des avis clients et un bouche-à-oreille de quartier.',
     },
   ] as BarberWhyCard[],
@@ -248,7 +248,7 @@ const defaults = {
   formEmailLabel: 'Adresse e-mail',
   formMessageLabel: 'Écrivez votre message ici…',
   formSubmitLabel: 'Prendre rendez-vous',
-  mapImage: '/images/image-import-1.png',
+  mapImage: '/images/barber/image-import-1.png',
   contactImage: FALLBACK_CONTACT,
   hoursLines: ['Lun – Sam : 09:00 – 19:00', 'Dimanche : Fermé'],
 }
@@ -451,20 +451,20 @@ export function buildBarberContent(content: SiteContent): BarberPageContent {
   const infoItems: BarberInfoItem[] = [
     {
       label: 'Adresse',
-      icon: '/images/image-import-15.png',
+      icon: '/images/barber/image-import-15.png',
       lines: [address],
     },
   ]
   if (phoneDisplay || phone) {
     infoItems.push({
       label: 'Téléphone',
-      icon: '/images/image-import-12.png',
+      icon: '/images/barber/image-import-12.png',
       lines: [phoneDisplay || phone],
     })
   }
   infoItems.push({
     label: 'Horaires',
-    icon: '/images/image-import-10.png',
+    icon: '/images/barber/image-import-10.png',
     lines: hoursLines,
   })
 
