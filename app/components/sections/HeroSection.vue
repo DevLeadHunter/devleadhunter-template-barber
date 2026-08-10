@@ -95,7 +95,8 @@ const heroTitleLines = computed((): string[] => {
 .barber-hero {
   position: relative;
   width: 100%;
-  height: 953px;
+  /* Plus haut que les 953px Pencil : la carte info (absolute, top:720) grandit (min-height) sans chevaucher la section suivante. */
+  height: 1010px;
 }
 
 .barber-hero__media {
@@ -117,12 +118,15 @@ const heroTitleLines = computed((): string[] => {
 
 .barber-hero__gradient {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 90%;
-  max-height: 781px;
-  background: linear-gradient(164deg, #121212 0%, rgb(18 18 18 / 0%) 49.5%);
+  /* Dégradé plein écran (transparent en haut → sombre derrière le titre) ; l'ancrage bas seul laissait une couture visible. */
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgb(18 18 18 / 0) 0%,
+    rgb(18 18 18 / 0.55) 32%,
+    rgb(18 18 18 / 0.72) 60%,
+    rgb(18 18 18 / 0.72) 100%
+  );
   pointer-events: none;
 }
 
@@ -177,7 +181,8 @@ const heroTitleLines = computed((): string[] => {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  height: 233px;
+  /* min-height (avant 233px fixes) : plusieurs lignes d'horaires agrandissent la carte au lieu de déborder en bas. */
+  min-height: 233px;
   padding: 40px 67px;
   background: #ffffff;
   box-sizing: border-box;

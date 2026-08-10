@@ -279,7 +279,7 @@ function formatHoursLines(hours: Array<{ day?: string; hours?: string }> | undef
       return slot || day
     })
     .filter((line) => line.length > 0)
-    .slice(0, 3)
+    .slice(0, 4)
 }
 
 function extractPrice(description: string): { text: string; price: string } {
@@ -323,12 +323,21 @@ function isRealSocialUrl(url: string): boolean {
   }
 }
 
+/** `SiteContent` + les métriques réelles injectées par l'API (note, avis, adresse, coords), absentes du contrat partagé. */
+type BarberContentInput = SiteContent & {
+  rating?: number | null
+  reviewsCount?: number | null
+  address?: string
+  lat?: number | null
+  lng?: number | null
+}
+
 /**
  * Construit le contenu de page prêt pour le rendu.
  * @param content Données variables du prospect (`SiteContent`)
  * @returns Contenu typé Barber
  */
-export function buildBarberContent(content: SiteContent): BarberPageContent {
+export function buildBarberContent(content: BarberContentInput): BarberPageContent {
   const palette = content.palette ?? {}
   const gallery = Array.isArray(content.gallery)
     ? content.gallery
@@ -346,7 +355,10 @@ export function buildBarberContent(content: SiteContent): BarberPageContent {
   const area: string = content.area ?? city
   const phoneDisplay: string = phone ? formatPhoneDisplay(phone) : ''
   const hoursLines: string[] = formatHoursLines(content.openingHours)
-  const address: string = [area, city].filter(Boolean).join(', ') || defaults.address
+  const realAddress: string = typeof content.address === 'string' ? content.address.trim() : ''
+  const address: string =
+    (realAddress ? [realAddress, city].filter(Boolean).join(', ') : area || city) ||
+    defaults.address
 
   const trustFromContent: BarberStatItem[] = Array.isArray(content.trustItems)
     ? content.trustItems
@@ -374,8 +386,9 @@ export function buildBarberContent(content: SiteContent): BarberPageContent {
           const fallback = defaults.services[index]
           return {
             title: typeof service?.title === 'string' ? service.title.trim() : '',
-            description: text || fallback?.description || '',
-            price: price || fallback?.price || '',
+            // Description propre au service (matchée par nom) — pas celle du slot, sinon « Coloration » hérite de « coupe + barbe ».
+            description: text,
+            price,
             icon:
               (typeof service?.icon === 'string' && service.icon.length > 0 ? service.icon : '') ||
               fallback?.icon ||
@@ -392,18 +405,31 @@ export function buildBarberContent(content: SiteContent): BarberPageContent {
     return text.length > 0 && author.length > 0
   })
 
+  // Note + nombre d'avis réels de l'enrichissement — jamais la moyenne des 2 avis affichés.
+  const realRating: number | null = typeof content.rating === 'number' ? content.rating : null
+  const realCount: number | null =
+    typeof content.reviewsCount === 'number' && content.reviewsCount > 0
+      ? content.reviewsCount
+      : null
   const googleBlock: BarberReviewBlock | null =
-    reviews.length > 0
+    realRating !== null
       ? {
           brand: 'GOOGLE',
-          score: (
-            reviews.reduce((sum, r) => sum + (typeof r.rating === 'number' ? r.rating : 5), 0) /
-            reviews.length
-          ).toFixed(1),
-          count: `${reviews.length} avis`,
+          score: realRating.toFixed(1),
+          count: realCount !== null ? `${realCount} avis` : `${reviews.length} avis`,
           kind: 'google',
         }
-      : null
+      : reviews.length > 0
+        ? {
+            brand: 'GOOGLE',
+            score: (
+              reviews.reduce((sum, r) => sum + (typeof r.rating === 'number' ? r.rating : 5), 0) /
+              reviews.length
+            ).toFixed(1),
+            count: `${reviews.length} avis`,
+            kind: 'google',
+          }
+        : null
 
   // Pas de compteur / note TripAdvisor dans SiteContent → ne jamais inventer.
   const tripadvisorBlock: BarberReviewBlock | null = null
@@ -439,14 +465,29 @@ export function buildBarberContent(content: SiteContent): BarberPageContent {
         .filter((item): item is BarberSocialItem => item !== null)
     : []
 
-  const heroImage: string = resolveText(content.heroImage, gallery[0]?.url || defaults.heroImage)
-  const aboutImage: string = resolveText(
-    content.aboutImage,
-    gallery[1]?.url || gallery[0]?.url || defaults.aboutImage,
+  // Une image distincte par section : une URL déjà prise n'est pas réutilisée (le hero ne réapparaît pas en mid-CTA/contact).
+  const usedImages = new Set<string>()
+  const pickImage = (preferred: string, fallbackDefault: string): string => {
+    const candidate: string = preferred && !usedImages.has(preferred) ? preferred : fallbackDefault
+    if (candidate) {
+      usedImages.add(candidate)
+    }
+    return candidate
+  }
+  const heroImage: string = pickImage(
+    resolveText(content.heroImage, gallery[0]?.url || defaults.heroImage),
+    defaults.heroImage,
   )
-  const midCtaImage: string = gallery[2]?.url || defaults.midCtaImage
-  const mapImage: string = gallery[3]?.url || defaults.mapImage
-  const contactImage: string = gallery[5]?.url || gallery[0]?.url || defaults.contactImage
+  const aboutImage: string = pickImage(
+    content.aboutImage || gallery[1]?.url || '',
+    defaults.aboutImage,
+  )
+  const midCtaImage: string = pickImage(gallery[2]?.url || '', defaults.midCtaImage)
+  const mapImage: string = pickImage(gallery[3]?.url || '', defaults.mapImage)
+  const contactImage: string = pickImage(
+    gallery[5]?.url || gallery[4]?.url || '',
+    defaults.contactImage,
+  )
 
   const infoItems: BarberInfoItem[] = [
     {
