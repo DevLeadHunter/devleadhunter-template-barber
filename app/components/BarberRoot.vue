@@ -2,12 +2,24 @@
   <div
     class="barber-page"
     :style="themeStyle">
-    <HeroSection :page="page" />
-    <AboutSection :page="page" />
-    <ServicesSection :page="page" />
-    <CtaSection :page="page" />
-    <WhySection :page="page" />
-    <FooterSection :page="page" />
+    <HeroSection
+      :page="page"
+      v-bind="editableAttrs(props.content._editable?.hero)" />
+    <AboutSection
+      :page="page"
+      v-bind="editableAttrs(props.content._editable?.about)" />
+    <ServicesSection
+      :page="page"
+      v-bind="editableAttrs(props.content._editable?.services)" />
+    <CtaSection
+      :page="page"
+      v-bind="editableAttrs(props.content._editable?.contact)" />
+    <WhySection
+      :page="page"
+      v-bind="editableAttrs(props.content._editable?.faq)" />
+    <FooterSection
+      :page="page"
+      v-bind="editableAttrs(props.content._editable?.contact)" />
   </div>
 </template>
 
@@ -18,6 +30,7 @@
  */
 import type { ComputedRef, PropType, StyleValue } from 'vue'
 import type { SiteContent } from '~/types/SiteContent'
+import { editableAttrs } from '@devleadhunter/website-content'
 import { buildBarberContent, type BarberPageContent } from '~/types/barber'
 import HeroSection from './sections/HeroSection.vue'
 import AboutSection from './sections/AboutSection.vue'
