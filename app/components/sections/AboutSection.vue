@@ -106,7 +106,7 @@ defineProps({
 }
 
 .barber-about__stat-sym {
-  color: #dec7a6;
+  color: var(--barber-accent, #dec7a6);
 }
 
 .barber-about__stat-label {

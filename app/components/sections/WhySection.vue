@@ -319,7 +319,7 @@ defineProps({
   margin-top: 61px;
   min-height: 353px;
   padding: 75px 40px 40px;
-  border: 1px solid #dec7a6;
+  border: 1px solid var(--barber-accent, #dec7a6);
   box-sizing: border-box;
   text-align: center;
 }

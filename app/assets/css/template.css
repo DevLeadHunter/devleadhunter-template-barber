@@ -86,7 +86,7 @@ body {
   padding: 20px 30px;
   border: none;
   border-radius: 0;
-  background: #dec7a6;
+  background: var(--barber-accent, #dec7a6);
   color: #121212;
   font-family: 'Barlow', ui-sans-serif, system-ui, sans-serif;
   font-size: 18px;
@@ -126,7 +126,7 @@ body {
   display: block;
   width: 80px;
   height: 5px;
-  background: #dec7a6;
+  background: var(--barber-accent, #dec7a6);
   border: none;
   margin: 0;
 }
