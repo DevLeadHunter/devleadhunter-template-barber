@@ -411,25 +411,16 @@ export function buildBarberContent(content: BarberContentInput): BarberPageConte
     typeof content.reviewsCount === 'number' && content.reviewsCount > 0
       ? content.reviewsCount
       : null
+  // No real rating → fall back to the template default block, never derive one from the displayed reviews.
   const googleBlock: BarberReviewBlock | null =
     realRating !== null
       ? {
           brand: 'GOOGLE',
           score: realRating.toFixed(1),
-          count: realCount !== null ? `${realCount} avis` : `${reviews.length} avis`,
+          count: realCount !== null ? `${realCount} avis` : defaults.google.count,
           kind: 'google',
         }
-      : reviews.length > 0
-        ? {
-            brand: 'GOOGLE',
-            score: (
-              reviews.reduce((sum, r) => sum + (typeof r.rating === 'number' ? r.rating : 5), 0) /
-              reviews.length
-            ).toFixed(1),
-            count: `${reviews.length} avis`,
-            kind: 'google',
-          }
-        : null
+      : defaults.google
 
   // Pas de compteur / note TripAdvisor dans SiteContent → ne jamais inventer.
   const tripadvisorBlock: BarberReviewBlock | null = null
