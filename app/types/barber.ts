@@ -53,7 +53,6 @@ export interface BarberTestimonial {
   title: string
   text: string
   author: string
-  avatar: string
   rating: number
 }
 
@@ -140,8 +139,6 @@ const FALLBACK_MID_CTA =
   'https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=1400&q=80'
 const FALLBACK_CONTACT =
   'https://images.unsplash.com/photo-1521590832167-7bcbfaaae1b0?auto=format&fit=crop&w=1400&q=80'
-const FALLBACK_AVATAR =
-  'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80'
 
 const defaults = {
   heroTitle: 'La coupe et la barbe\npour les hommes pressés',
@@ -160,7 +157,7 @@ const defaults = {
   ] as BarberStatItem[],
   servicesHeading: 'Nos prestations',
   servicesIntro:
-    'Des prestations claires, des tarifs affichés, et le temps qu’il faut pour un résultat net — coupe, barbe ou les deux.',
+    'Des prestations claires et le temps qu’il faut pour un résultat net — coupe, barbe ou les deux.',
   services: [
     {
       title: 'Coupe homme',
@@ -234,7 +231,6 @@ const defaults = {
     title: 'LE MEILLEUR SERVICE BARBIER',
     text: 'Enfin un barbier qui écoute. Coupe nette, barbe impeccable, et on ressort avec le moral. Je ne vais plus ailleurs.',
     author: 'JULIEN R.',
-    avatar: FALLBACK_AVATAR,
     rating: 5,
   } as BarberTestimonial,
   contactHeading: 'Prendre rendez-vous',
@@ -430,8 +426,6 @@ export function buildBarberContent(content: BarberContentInput): BarberPageConte
         title: defaults.testimonial.title,
         text: (featured.text ?? '').trim(),
         author: (featured.author ?? '').trim().toUpperCase(),
-        // Pas de photo d’auteur dans SiteContent : avatar décoratif Unsplash (éditable CMS via galerie).
-        avatar: gallery[4]?.url || defaults.testimonial.avatar,
         rating: typeof featured.rating === 'number' ? featured.rating : 5,
       }
     : null

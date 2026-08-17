@@ -11,6 +11,7 @@
         class="barber-hero__gradient"
         aria-hidden="true" />
       <div class="barber-hero__content">
+        <p class="barber-hero__kicker font-barber-display">{{ page.businessName }}</p>
         <h1 class="barber-hero__title font-barber-display">
           <template
             v-for="(line, i) in heroTitleLines"
@@ -139,6 +140,16 @@ const heroTitleLines = computed((): string[] => {
   transform: translateX(-50%);
   text-align: center;
   color: #ffffff;
+}
+
+.barber-hero__kicker {
+  margin: 0 0 14px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--barber-accent, #dec7a6);
 }
 
 .barber-hero__title {
@@ -307,6 +318,12 @@ const heroTitleLines = computed((): string[] => {
     bottom: 56px;
     width: calc(100% - 28px);
     padding-bottom: 8px;
+  }
+
+  .barber-hero__kicker {
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
   }
 
   .barber-hero__title {

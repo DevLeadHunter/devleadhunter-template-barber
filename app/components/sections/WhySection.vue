@@ -64,13 +64,11 @@
         <blockquote
           v-if="page.testimonial"
           class="barber-why__quote">
-          <img
-            v-if="page.testimonial.avatar"
-            class="barber-why__avatar"
-            :src="page.testimonial.avatar"
-            :alt="page.testimonial.author"
-            width="107"
-            height="107" />
+          <span
+            class="barber-why__avatar font-barber-display"
+            aria-hidden="true"
+            >{{ initials(page.testimonial.author) }}</span
+          >
           <div class="barber-why__quote-body">
             <div
               class="barber-why__stars barber-why__stars--quote"
@@ -130,6 +128,20 @@ defineProps({
     required: true,
   },
 })
+
+/**
+ * Initiales d'un auteur d'avis (avatar = initiales, jamais une photo du prospect).
+ * @param name Nom de l'auteur
+ * @returns 1 à 2 initiales majuscules
+ */
+function initials(name: string): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part: string): string => part.charAt(0).toUpperCase())
+    .join('')
+}
 </script>
 
 <style scoped>
@@ -308,10 +320,16 @@ defineProps({
   left: 50%;
   top: 0;
   z-index: 1;
+  display: grid;
+  place-items: center;
   width: 107px;
   height: 107px;
   border-radius: 100px;
-  object-fit: cover;
+  background: var(--barber-accent, #dec7a6);
+  color: #121212;
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: 1px;
   transform: translateX(-50%);
 }
 
