@@ -145,6 +145,14 @@ const FALLBACK_CONTACT =
 const HERO_TITLE_MEN = 'La coupe et la barbe\npour les hommes pressés'
 const HERO_TITLE_MIXED = 'La coupe et la barbe,\nsans y passer la journée'
 
+// Neutralised copy for a mixed salon: the men-only defaults ("pour les hommes", "Barbiers",
+// "SERVICE BARBIER") read wrong on a unisex salon, so a mixed audience gets these instead.
+const WHY_INTRO_MIXED =
+  'Un salon de quartier où l’on prend le temps : une coupe nette, un conseil qui vous va, et un rendez-vous respecté.'
+const WHY_CARD_QUALIFIED_MIXED =
+  'Une équipe expérimentée, hygiène stricte et produits soignés pour une expérience confortable à chaque visite.'
+const TESTIMONIAL_TITLE_MIXED = 'UN SALON QUE L’ON RECOMMANDE'
+
 const defaults = {
   heroTitle: HERO_TITLE_MEN,
   heroSubtitle: 'Coupe, barbe et soins — un salon de quartier, sur rendez-vous.',
@@ -332,6 +340,8 @@ type BarberContentInput = SiteContent & {
   lng?: number | null
   /** 'men' (barbershop homme) ou 'all' (salon mixte) — pilote la copie genrée du hero. */
   audience?: string
+  /** 'BARBIER' / 'COIFFEUR' : survit au round-trip Storyblok, porte l'audience jusqu'ici. */
+  heroBadge?: string
 }
 
 /**
@@ -400,6 +410,12 @@ export function buildBarberContent(content: BarberContentInput): BarberPageConte
         .filter((item) => item.title.length > 0)
     : []
 
+  // Men's barbershop vs mixed salon. `audience` is the intent but it doesn't survive the Storyblok
+  // round-trip; `heroBadge` (BARBIER vs COIFFEUR, set by the API from the same decision) does, so it
+  // is the reliable carrier for the gendered copy below.
+  const isMixedAudience: boolean =
+    content.audience === 'all' || /coiffeu|salon|mixte/i.test(content.heroBadge ?? '')
+
   const reviews = Array.isArray(content.reviews) ? content.reviews : []
   const featured = reviews.find((item) => {
     const text: string = typeof item?.text === 'string' ? item.text.trim() : ''
@@ -429,7 +445,7 @@ export function buildBarberContent(content: BarberContentInput): BarberPageConte
 
   const testimonialBlock: BarberTestimonial | null = featured
     ? {
-        title: defaults.testimonial.title,
+        title: isMixedAudience ? TESTIMONIAL_TITLE_MIXED : defaults.testimonial.title,
         text: (featured.text ?? '').trim(),
         author: (featured.author ?? '').trim().toUpperCase(),
         rating: typeof featured.rating === 'number' ? featured.rating : 5,
@@ -521,7 +537,7 @@ export function buildBarberContent(content: BarberContentInput): BarberPageConte
     city,
     area,
     address,
-    heroTitle: content.audience === 'all' ? HERO_TITLE_MIXED : HERO_TITLE_MEN,
+    heroTitle: isMixedAudience ? HERO_TITLE_MIXED : HERO_TITLE_MEN,
     heroSubtitle: resolveText(content.subtitle, defaults.heroSubtitle),
     heroImage,
     ctaPrimary: resolveText(content.ctaCallLabel, defaults.ctaPrimary),
@@ -539,8 +555,10 @@ export function buildBarberContent(content: BarberContentInput): BarberPageConte
     midCtaImage,
     midCtaButton: resolveText(content.ctaCallLabel, defaults.midCtaButton),
     whyHeading: resolveText(content.faqHeading, defaults.whyHeading),
-    whyIntro: defaults.whyIntro,
-    whyCards: [...defaults.whyCards],
+    whyIntro: isMixedAudience ? WHY_INTRO_MIXED : defaults.whyIntro,
+    whyCards: defaults.whyCards.map((card, index) =>
+      isMixedAudience && index === 0 ? { ...card, text: WHY_CARD_QUALIFIED_MIXED } : card,
+    ),
     reviewsHeading: resolveText(content.reviewsHeading, defaults.reviewsHeading),
     google: googleBlock,
     tripadvisor: tripadvisorBlock,
