@@ -110,7 +110,8 @@ export interface BarberPageContent {
   formEmailLabel: string
   formMessageLabel: string
   formSubmitLabel: string
-  mapImage: string
+  lat: number
+  lng: number
   socials: BarberSocialItem[]
   copyright: string
 }
@@ -140,15 +141,19 @@ const FALLBACK_MID_CTA =
 const FALLBACK_CONTACT =
   'https://images.unsplash.com/photo-1521590832167-7bcbfaaae1b0?auto=format&fit=crop&w=1400&q=80'
 
+/** Titre hero genré : version « hommes pressés » (barbershop) vs neutre (salon mixte). */
+const HERO_TITLE_MEN = 'La coupe et la barbe\npour les hommes pressés'
+const HERO_TITLE_MIXED = 'La coupe et la barbe,\nsans y passer la journée'
+
 const defaults = {
-  heroTitle: 'La coupe et la barbe\npour les hommes pressés',
-  heroSubtitle: 'Coupe, barbe et soins pour hommes — un salon de quartier, sur rendez-vous.',
+  heroTitle: HERO_TITLE_MEN,
+  heroSubtitle: 'Coupe, barbe et soins — un salon de quartier, sur rendez-vous.',
   heroImage: FALLBACK_HERO,
   ctaPrimary: 'Prendre rendez-vous',
   ctaSecondary: 'Voir les prestations',
   aboutHeading: 'Votre barbier de quartier',
   about:
-    'Salon de coiffure pour hommes : coupes classiques et contemporaines, entretien de barbe et rasage soigné. Accueil sans chichi, diagnostic clair et un résultat net à chaque passage.',
+    'Salon de coiffure : coupes classiques et contemporaines, entretien de barbe et rasage soigné. Accueil sans chichi, diagnostic clair et un résultat net à chaque passage.',
   aboutImage: FALLBACK_ABOUT,
   address: 'France',
   stats: [
@@ -244,7 +249,6 @@ const defaults = {
   formEmailLabel: 'Adresse e-mail',
   formMessageLabel: 'Écrivez votre message ici…',
   formSubmitLabel: 'Prendre rendez-vous',
-  mapImage: '/images/barber/image-import-1.png',
   contactImage: FALLBACK_CONTACT,
   hoursLines: ['Lun – Sam : 09:00 – 19:00', 'Dimanche : Fermé'],
 }
@@ -326,6 +330,8 @@ type BarberContentInput = SiteContent & {
   address?: string
   lat?: number | null
   lng?: number | null
+  /** 'men' (barbershop homme) ou 'all' (salon mixte) — pilote la copie genrée du hero. */
+  audience?: string
 }
 
 /**
@@ -468,7 +474,6 @@ export function buildBarberContent(content: BarberContentInput): BarberPageConte
     defaults.aboutImage,
   )
   const midCtaImage: string = pickImage(gallery[2]?.url || '', defaults.midCtaImage)
-  const mapImage: string = pickImage(gallery[3]?.url || '', defaults.mapImage)
   const contactImage: string = pickImage(
     gallery[5]?.url || gallery[4]?.url || '',
     defaults.contactImage,
@@ -516,7 +521,7 @@ export function buildBarberContent(content: BarberContentInput): BarberPageConte
     city,
     area,
     address,
-    heroTitle: defaults.heroTitle,
+    heroTitle: content.audience === 'all' ? HERO_TITLE_MIXED : HERO_TITLE_MEN,
     heroSubtitle: resolveText(content.subtitle, defaults.heroSubtitle),
     heroImage,
     ctaPrimary: resolveText(content.ctaCallLabel, defaults.ctaPrimary),
@@ -551,7 +556,8 @@ export function buildBarberContent(content: BarberContentInput): BarberPageConte
     formEmailLabel: defaults.formEmailLabel,
     formMessageLabel: defaults.formMessageLabel,
     formSubmitLabel: resolveText(content.ctaCallLabel, defaults.formSubmitLabel),
-    mapImage,
+    lat: typeof content.lat === 'number' ? content.lat : 0,
+    lng: typeof content.lng === 'number' ? content.lng : 0,
     socials: socialFromContent,
     copyright: `© ${new Date().getFullYear()} ${businessName} — Tous droits réservés`,
   }

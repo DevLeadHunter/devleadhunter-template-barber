@@ -150,11 +150,19 @@
     </div>
 
     <div class="barber-footer__map">
-      <img
-        :src="page.mapImage"
-        alt="Map location"
-        width="1472"
-        height="499" />
+      <iframe
+        class="barber-footer__map-frame"
+        title="Carte de localisation du salon"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        :src="mapEmbedUrl" />
+      <a
+        class="barber-footer__map-link font-barber-display"
+        :href="mapsUrl"
+        target="_blank"
+        rel="noopener noreferrer">
+        Voir sur Google Maps
+      </a>
     </div>
 
     <div class="barber-footer__copyright">
@@ -197,6 +205,36 @@ const props = defineProps({
 })
 
 const phoneHref: ComputedRef<string> = computed((): string => props.page.phone.replace(/\D/g, ''))
+
+/** Requête de localisation : adresse rue si dispo, sinon zone + ville + nom (jamais vide). */
+const mapQuery: ComputedRef<string> = computed((): string => {
+  const parts: string[] = [
+    props.page.address || props.page.area,
+    props.page.city,
+    props.page.businessName,
+  ].filter((part: string): boolean => Boolean(part) && part.trim().length > 0)
+  return parts.join(', ') || `${props.page.lat},${props.page.lng}`
+})
+
+const hasCoordinates: ComputedRef<boolean> = computed(
+  (): boolean =>
+    Number.isFinite(props.page.lat) &&
+    Number.isFinite(props.page.lng) &&
+    (props.page.lat !== 0 || props.page.lng !== 0),
+)
+
+/** Embed Google Maps sans clé (output=embed) centré sur les vraies coords, sinon sur l'adresse. */
+const mapEmbedUrl: ComputedRef<string> = computed((): string => {
+  const target: string = hasCoordinates.value
+    ? `${props.page.lat},${props.page.lng}`
+    : mapQuery.value
+  return `https://maps.google.com/maps?q=${encodeURIComponent(target)}&z=15&hl=fr&output=embed`
+})
+
+const mapsUrl: ComputedRef<string> = computed(
+  (): string =>
+    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery.value)}`,
+)
 
 const form = reactive({
   fullName: '',
@@ -461,12 +499,31 @@ function onSubmit(): void {
   background: #d9d9d9;
 }
 
-.barber-footer__map img {
+.barber-footer__map-frame {
   display: block;
   width: 100%;
   height: 640px;
-  object-fit: cover;
-  object-position: center;
+  border: 0;
+  /* Style « argenté / sobre » cohérent avec la DA crème & charcoal. */
+  filter: grayscale(0.5) saturate(0.7) contrast(1.03);
+}
+
+.barber-footer__map-link {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 20px;
+  background: var(--barber-accent, #dec7a6);
+  color: #121212;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 10px 24px -12px rgb(0 0 0 / 0.5);
 }
 
 .barber-footer__copyright {
@@ -615,7 +672,7 @@ function onSubmit(): void {
     justify-content: center;
   }
 
-  .barber-footer__map img {
+  .barber-footer__map-frame {
     height: 360px;
   }
 }
@@ -635,7 +692,7 @@ function onSubmit(): void {
     height: 56px;
   }
 
-  .barber-footer__map img {
+  .barber-footer__map-frame {
     height: 280px;
   }
 }
