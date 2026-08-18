@@ -489,9 +489,9 @@ export function buildBarberContent(content: BarberContentInput): BarberPageConte
     content.aboutImage || gallery[1]?.url || '',
     defaults.aboutImage,
   )
-  const midCtaImage: string = pickImage(gallery[2]?.url || '', defaults.midCtaImage)
+  const midCtaImage: string = pickImage(content.images?.midCta || '', defaults.midCtaImage)
   const contactImage: string = pickImage(
-    gallery[5]?.url || gallery[4]?.url || '',
+    content.images?.contactBackground || '',
     defaults.contactImage,
   )
 
