@@ -13,7 +13,7 @@
       v-bind="editableAttrs(props.content._editable?.services)" />
     <CtaSection
       :page="page"
-      v-bind="editableAttrs(props.content._editable?.contact)" />
+      v-bind="editableAttrs(props.content._editable?.about)" />
     <WhySection
       :page="page"
       v-bind="editableAttrs(props.content._editable?.faq)" />
